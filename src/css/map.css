@@ -1,0 +1,10 @@
+@import url("~leaflet/dist/leaflet.css");
+@import url("~leaflet.locatecontrol/dist/L.Control.Locate.min.css");
+@import url("~font-awesome/css/font-awesome.min.css");
+
+body,
+#root,
+.leaflet-container {
+    height: 100vh;
+    width: 100vw;
+}
