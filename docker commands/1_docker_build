@@ -1,1 +1,1 @@
-docker build -t wayd-client .
+docker build -t tsvlad/wayd-client .
