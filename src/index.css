@@ -1,0 +1,12 @@
+#login-form {
+    width: 30%;
+}
+
+#unsuccessful-login-alert {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    height: auto;
+    width: auto;
+}

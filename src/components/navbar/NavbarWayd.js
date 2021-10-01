@@ -17,11 +17,11 @@ const NavbarWayd = (props) => {
                     Wayd
                 </Navbar.Brand>
 
-                <Nav>
+                <Navbar.Collapse className="justify-content-end">
                     {!props.user &&
                         <Login/>
                     }
-                </Nav>
+                </Navbar.Collapse>
             </Container>
         </Navbar>
     )

@@ -1,4 +1,4 @@
-import SET_USER_ACTION from "../actions/actionTypes";
+import {SET_SHOW_UNSUCCESSFUL_LOGIN_ALERT_ACTION, SET_USER_ACTION} from "../actions/actionTypes";
 
 const setUserAction = (user) => {
     return {
@@ -7,4 +7,11 @@ const setUserAction = (user) => {
     }
 }
 
-export default setUserAction
+const setShowUnsuccessfulLoginAlertAction = (show) => {
+    return {
+        type: SET_SHOW_UNSUCCESSFUL_LOGIN_ALERT_ACTION,
+        show
+    }
+}
+
+export {setUserAction, setShowUnsuccessfulLoginAlertAction}

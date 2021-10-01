@@ -1,7 +1,9 @@
-import { MapContainer, TileLayer } from 'react-leaflet'
+import {MapContainer, TileLayer} from 'react-leaflet'
 import LocationMarker from "./LocationMarker";
+import {Alert} from "react-bootstrap";
+import {connect} from "react-redux";
 
-const MapWayd = () => {
+const MapWayd = (props) => {
 
     return (
         <div className={'wayd-map-container'}>
@@ -11,9 +13,21 @@ const MapWayd = () => {
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
                 <LocationMarker/>
+
+                {props.showUnsuccessfulLoginAlert &&
+                <Alert id="unsuccessful-login-alert" variant="danger">
+                    Incorrect username or password!
+                </Alert>}
             </MapContainer>
         </div>
     )
 }
 
-export default MapWayd
+const mapStateToProps = (state) => {
+    return {
+        showUnsuccessfulLoginAlert: state.showUnsuccessfulLoginAlert
+    }
+}
+
+
+export default connect(mapStateToProps)(MapWayd)
