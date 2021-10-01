@@ -1,9 +1,6 @@
-import {Alert, Button, Form, InputGroup} from "react-bootstrap";
+import {Button, Form, InputGroup} from "react-bootstrap";
 import {bindActionCreators} from "redux";
-import {
-    setShowUnsuccessfulLoginAlertAction,
-    setUserAction
-} from "../../store/actionCreators/actionCreators";
+import {setShowUnsuccessfulLoginAlertAction, setUserAction} from "../../store/actionCreators/actionCreators";
 import {connect} from "react-redux";
 import clientRequest from "../../utills/clientRequest";
 import {useState} from "react";
@@ -27,7 +24,7 @@ const Login = (props) => {
                     response.text().then(token => {
                         const tokenArray = token.split('.')
                         const payload = JSON.parse(atob(tokenArray[1]))
-                        props.setUserDispatch({username: payload.username})
+                        props.setUserDispatch({username: payload.username, roles: payload.roles})
                         localStorage.setItem('token', token)
                     })
                 } else if (response.status === 401) {

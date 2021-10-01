@@ -1,6 +1,7 @@
-import {Button, Container, Form, InputGroup, Nav, Navbar} from "react-bootstrap";
+import {Container, Navbar} from "react-bootstrap";
 import {connect} from "react-redux";
 import Login from "./Login";
+import DropDownMenuWayd from "./DropDownMenuWayd";
 
 const NavbarWayd = (props) => {
     return (
@@ -19,7 +20,11 @@ const NavbarWayd = (props) => {
 
                 <Navbar.Collapse className="justify-content-end">
                     {!props.user &&
-                        <Login/>
+                    <Login/>
+                    }
+                    {
+                        props.user &&
+                        <DropDownMenuWayd/>
                     }
                 </Navbar.Collapse>
             </Container>
