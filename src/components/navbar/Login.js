@@ -18,7 +18,7 @@ const Login = (props) => {
     }
 
     const onLogin = () => {
-        clientRequest('/user/login', 'POST', {username: username, password: password},)
+        clientRequest('/wayd-user/user-service-api/auth/login', 'POST', {username: username, password: password},)
             .then(response => {
                 if (response.status === 200) {
                     response.text().then(token => {
