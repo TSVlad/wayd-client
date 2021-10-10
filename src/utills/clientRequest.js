@@ -2,22 +2,26 @@
 const clientRequest = (
     path='/',
     method='GET',
-    body={},
+    body= null,
     headers={
         'Accept': 'application/json',
         'Content-Type': 'application/json'
     },
     url= 'http://localhost:8080',
 ) => {
-
-    return fetch(url + path, {
+    const request = {
         method: method,
         headers: {
             ...headers,
             'authorization': `${localStorage.getItem("token")}`
-        },
-        body: JSON.stringify(body)
-    })
+        }
+    }
+
+    if (method !== 'GET' && method !== 'DELETE') {
+        request.body = JSON.stringify(body)
+    }
+
+    return fetch(url + path, request)
 }
 
 export default clientRequest

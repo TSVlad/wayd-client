@@ -1,7 +1,14 @@
 import {NavDropdown} from "react-bootstrap";
 import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+import {setUserAction} from "../../store/actionCreators/actionCreators";
 
-const DropDownMenuWayd = (props) => {
+const UserDropDown = (props) => {
+
+    const onLogout = () => {
+        localStorage.removeItem("token")
+        props.setUserDispatch(null)
+    }
 
     return (
 
@@ -14,7 +21,7 @@ const DropDownMenuWayd = (props) => {
             <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
             <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
             <NavDropdown.Divider/>
-            <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+            <NavDropdown.Item href="/" onClick={onLogout}>Logout</NavDropdown.Item>
         </NavDropdown>
     )
 
@@ -26,4 +33,11 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(DropDownMenuWayd)
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({
+            setUserDispatch: setUserAction,
+        },
+        dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserDropDown)

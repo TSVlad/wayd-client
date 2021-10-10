@@ -1,9 +1,11 @@
-import {Button, Form, InputGroup} from "react-bootstrap";
+import {Button, Form, InputGroup, NavDropdown} from "react-bootstrap";
 import {bindActionCreators} from "redux";
 import {setShowUnsuccessfulLoginAlertAction, setUserAction} from "../../store/actionCreators/actionCreators";
 import {connect} from "react-redux";
 import clientRequest from "../../utills/clientRequest";
 import {useState} from "react";
+import PATHS from "../../utills/servicesPaths";
+import {setCookie} from "../../utills/cookies";
 
 
 const Login = (props) => {
@@ -18,14 +20,16 @@ const Login = (props) => {
     }
 
     const onLogin = () => {
-        clientRequest('/wayd-user/user-service-api/auth/login', 'POST', {username: username, password: password},)
+        clientRequest(`${PATHS.userServiceAPI}/auth/login`, 'POST', {username: username, password: password},)
             .then(response => {
                 if (response.status === 200) {
                     response.text().then(token => {
-                        const tokenArray = token.split('.')
-                        const payload = JSON.parse(atob(tokenArray[1]))
-                        props.setUserDispatch({username: payload.username, roles: payload.roles})
-                        localStorage.setItem('token', token)
+                        if (token.startsWith("Bearer ")) {
+                            const tokenArray = token.substring(7).split('.')
+                            const payload = JSON.parse(atob(tokenArray[1]))
+                            props.setUserDispatch({username: payload.username, roles: payload.roles})
+                            setCookie('token', token, new Date(payload.expiredAt))
+                        }
                     })
                 } else if (response.status === 401) {
                     showAlertForSeconds(5)
@@ -34,14 +38,25 @@ const Login = (props) => {
     }
 
     return (
-        <InputGroup id="login-form" size="small">
-            <Form.Control id="username-login-input" className="col-xs-2" type="text" size="sm" placeholder="Username"
-                          onChange={(event) => setUsername(event.target.value)}/>
-            <Form.Control id="password-login-input" type="password" size="sm" placeholder="Password"
-                          onChange={(event) => setPassword(event.target.value)}/>
-            <Button variant="light" onClick={onLogin}>Login</Button>
-
-        </InputGroup>
+        <div className="nav-item dropdown">
+            <a href="#" data-toggle="dropdown" className="nav-link dropdown-toggle mr-4">Login</a>
+            <div className="dropdown-menu action-form">
+                    <div className="form-group">
+                        <input type="text" className="form-control" placeholder="Username"
+                               required="required"
+                               onChange={(event) => setUsername(event.target.value)}/>
+                    </div>
+                    <div className="form-group">
+                        <input type="password" className="form-control" placeholder="Password"
+                               required="required"
+                               onChange={(event) => setPassword(event.target.value)}/>
+                    </div>
+                    <input className="btn btn-primary btn-block" value="Login" onClick={onLogin}/>
+                    <div className="text-center mt-2">
+                        <a href="#">Forgot Your password?</a>
+                    </div>
+            </div>
+        </div>
     )
 }
 
