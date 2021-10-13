@@ -14,4 +14,12 @@ const getCookie = (name) => {
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
-export {setCookie,  getCookie}
+function deleteCookie(name, path = '/') {
+    if( getCookie(name) ) {
+        document.cookie = name + "=" +
+            ((path) ? ";path="+path:"")+
+            ";expires=Thu, 01 Jan 1970 00:00:01 GMT";
+    }
+}
+
+export {setCookie,  getCookie, deleteCookie}

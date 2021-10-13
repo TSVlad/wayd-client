@@ -2,11 +2,12 @@ import {NavDropdown} from "react-bootstrap";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import {setUserAction} from "../../store/actionCreators/actionCreators";
+import {deleteCookie} from "../../utills/cookies";
 
 const UserDropDown = (props) => {
 
     const onLogout = () => {
-        localStorage.removeItem("token")
+        deleteCookie('token')
         props.setUserDispatch(null)
     }
 
