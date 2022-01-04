@@ -1,9 +1,20 @@
-import {MapContainer, TileLayer} from 'react-leaflet'
+import {MapContainer, TileLayer, useMap} from 'react-leaflet'
 import LocationMarker from "./LocationMarker";
 import {Alert} from "react-bootstrap";
 import {connect} from "react-redux";
+import EventMarkers from "./EventMarkers";
+import 'leaflet/dist/leaflet.css';
+import icon from 'leaflet/dist/images/marker-icon.png';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+import L from 'leaflet'
 
 const MapWayd = (props) => {
+
+    let DefaultIcon = L.icon({
+        iconUrl: icon,
+        shadowUrl: iconShadow
+    });
+    L.Marker.prototype.options.icon = DefaultIcon;
 
     return (
         <div className={'wayd-map-container'}>
@@ -12,7 +23,9 @@ const MapWayd = (props) => {
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
+
                 <LocationMarker/>
+                <EventMarkers/>
 
                 {props.showUnsuccessfulLoginAlert &&
                 <Alert id="unsuccessful-login-alert" variant="danger">

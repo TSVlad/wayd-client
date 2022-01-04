@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";import Home from "./components/pages/Home";
 import NavbarWayd from "./components/navbar/NavbarWayd";
 import Categories from "./components/pages/Categories";
+import Event from "./components/pages/Event";
 
 function App() {
     return (
@@ -16,6 +17,9 @@ function App() {
                 <Switch>
                     <Route path="/categories">
                         <Categories/>
+                    </Route>
+                    <Route path={"/event/:eventId"}>
+                        <Event/>
                     </Route>
                     <Route path="/">
                         <Home/>

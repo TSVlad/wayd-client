@@ -1,4 +1,3 @@
-import {Button, Form, InputGroup, NavDropdown} from "react-bootstrap";
 import {bindActionCreators} from "redux";
 import {setShowUnsuccessfulLoginAlertAction, setUserAction} from "../../store/actionCreators/actionCreators";
 import {connect} from "react-redux";
@@ -68,8 +67,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
-        setUserDispatch: setUserAction,
-        setShowUnsuccessfulLoginAlertDispatch: setShowUnsuccessfulLoginAlertAction},
+            setUserDispatch: setUserAction,
+            setShowUnsuccessfulLoginAlertDispatch: setShowUnsuccessfulLoginAlertAction},
         dispatch)
 }
 
