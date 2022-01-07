@@ -1,4 +1,4 @@
-import {Marker, Popup, useMap, useMapEvents} from "react-leaflet";
+import {Marker, Popup, useMapEvents} from "react-leaflet";
 import {useState} from "react";
 import clientRequest from "../../utills/clientRequest";
 import PATHS from "../../utills/servicesPaths";
@@ -12,16 +12,18 @@ const EventMarkers = () => {
     const fetchEvents = () => {
         const bounds = map.getBounds()
         clientRequest(`${PATHS.eventServiceAPI}/event/all-in-poly`, 'POST', {
-            type: 'Polygon',
-            coordinates: [
-                [
-                    [bounds.getNorthWest().lat, bounds.getNorthWest().lng],
-                    [bounds.getSouthWest().lat, bounds.getSouthWest().lng],
-                    [bounds.getSouthEast().lat, bounds.getSouthEast().lng],
-                    [bounds.getNorthEast().lat, bounds.getNorthEast().lng],
-                    [bounds.getNorthWest().lat, bounds.getNorthWest().lng]
+            geoJsonPolygon: {
+                type: 'Polygon',
+                coordinates: [
+                    [
+                        [bounds.getNorthWest().lat, bounds.getNorthWest().lng],
+                        [bounds.getSouthWest().lat, bounds.getSouthWest().lng],
+                        [bounds.getSouthEast().lat, bounds.getSouthEast().lng],
+                        [bounds.getNorthEast().lat, bounds.getNorthEast().lng],
+                        [bounds.getNorthWest().lat, bounds.getNorthWest().lng]
+                    ]
                 ]
-            ]
+            }
         })
             .then(response => {
                 if (response.status === 200) {
