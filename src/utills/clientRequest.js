@@ -1,3 +1,4 @@
+import {getCookie} from "./cookies";
 
 const clientRequest = (
     path='/',
@@ -13,7 +14,7 @@ const clientRequest = (
         method: method,
         headers: {
             ...headers,
-            'authorization': `${localStorage.getItem("token")}`
+            'Authorization': `${getCookie("token")}`
         }
     }
 
