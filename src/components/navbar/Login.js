@@ -27,7 +27,7 @@ const Login = (props) => {
                             const tokenArray = token.substring(7).split('.')
                             const payload = JSON.parse(atob(tokenArray[1]))
                             props.setUserDispatch({username: payload.username, roles: payload.roles})
-                            setCookie('token', token, new Date(payload.expiredAt))
+                            setCookie('wayd-token', token, new Date(payload.expiredAt))
                         }
                     })
                 } else if (response.status === 401) {

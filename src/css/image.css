@@ -1,0 +1,29 @@
+.delete-image-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.image-div {
+    position: relative;
+    left: 0;
+    top: 0;
+    width: 204px;
+    height: 204px;
+    border: black solid 2px;
+}
+
+.small-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    max-height: 200px;
+    max-width: 200px;
+}
+
+.add-image-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+}

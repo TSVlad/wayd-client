@@ -7,6 +7,7 @@ import {
 import NavbarWayd from "./components/navbar/NavbarWayd";
 import Categories from "./components/pages/Categories";
 import Event from "./components/pages/Event";
+import NewEventPage from "./components/pages/NewEventPage";
 
 function App() {
     return (
@@ -17,6 +18,9 @@ function App() {
                 <Switch>
                     <Route path="/categories">
                         <Categories/>
+                    </Route>
+                    <Route path={"/event/new"}>
+                        <NewEventPage/>
                     </Route>
                     <Route path={"/event/:eventId"}>
                         <Event/>

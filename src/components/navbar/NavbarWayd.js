@@ -6,11 +6,12 @@ import {bindActionCreators} from "redux";
 import {setUserAction} from "../../store/actionCreators/actionCreators";
 import {useEffect, useState} from "react";
 import {getCookie} from "../../utills/cookies";
+import {Button} from "react-bootstrap";
 
 const NavbarWayd = (props) => {
 
     useEffect(() => {
-        const token = getCookie('token')
+        const token = getCookie('wayd-token')
         console.log(token)
         if (token && token.startsWith("Bearer ")) {
             const tokenArray = token.substring(7).split('.')
@@ -31,36 +32,17 @@ const NavbarWayd = (props) => {
                     {props.user && props.user.roles.indexOf("ROLE_ADMIN") !== -1 &&
                         <a href="/categories" className="nav-item nav-link">Categories</a>
                     }
-                    <a href="#" className="nav-item nav-link">About</a>
-                    <div className="nav-item dropdown">
-                        <a href="#" data-toggle="dropdown" className="nav-item nav-link dropdown-toggle">Services</a>
-                        <div className="dropdown-menu">
-                            <a href="#" className="dropdown-item">Web Design</a>
-                            <a href="#" className="dropdown-item">Web Development</a>
-                            <a href="#" className="dropdown-item">Graphic Design</a>
-                            <a href="#" className="dropdown-item">Digital Marketing</a>
-                        </div>
-                    </div>
-                    <a href="#" className="nav-item nav-link active">Pricing</a>
-                    <a href="#" className="nav-item nav-link">Blog</a>
-                    <a href="#" className="nav-item nav-link">Contact</a>
+
                 </div>
-                <form className="navbar-form form-inline">
-                    <div className="input-group search-box">
-                        <input type="text" id="search" className="form-control" placeholder="Search here..."/>
-                        <div className="input-group-append">
-					<span className="input-group-text">
-						<i className="material-icons">&#xE8B6;</i>
-					</span>
-                        </div>
-                    </div>
-                </form>
                 <div className="navbar-nav ml-auto action-buttons">
                     {!props.user &&
                     <>
                         <Login/>
                         <SignUp/>
                     </>
+                    }
+                    {props.user && props.user.roles.includes('ROLE_USER') &&
+                        <a href="/event/new"><Button className="mr-3">Create event</Button></a>
                     }
                     {props.user &&
                         <UserDropDown/>
