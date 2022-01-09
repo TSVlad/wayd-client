@@ -150,7 +150,6 @@ const EventEditComponent = (props) => {
                 <Form.Group className="mt-3">
                     <Form.Label>Event date and time</Form.Label>
                     <Form.Control type="datetime-local" onChange={e => {
-                        console.log(new Date(e.target.value).toISOString())
                         setEvent({...event, dateTime: new Date(e.target.value).toISOString()})
                     }}/>
                 </Form.Group>
