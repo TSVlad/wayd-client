@@ -7,7 +7,7 @@ import {deleteCookie} from "../../utills/cookies";
 const UserDropDown = (props) => {
 
     const onLogout = () => {
-        deleteCookie('token')
+        deleteCookie('wayd-token')
         props.setUserDispatch(null)
     }
 
