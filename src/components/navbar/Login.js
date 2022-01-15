@@ -1,7 +1,7 @@
 import {bindActionCreators} from "redux";
 import {setShowUnsuccessfulLoginAlertAction, setUserAction} from "../../store/actionCreators/actionCreators";
 import {connect} from "react-redux";
-import clientRequest from "../../utills/clientRequest";
+import clientRequest from "../../utills/request/clientRequest";
 import {useState} from "react";
 import PATHS from "../../utills/servicesPaths";
 import {setCookie} from "../../utills/cookies";

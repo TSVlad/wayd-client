@@ -16,7 +16,7 @@ const NavbarWayd = (props) => {
         if (token && token.startsWith("Bearer ")) {
             const tokenArray = token.substring(7).split('.')
             const payload = JSON.parse(atob(tokenArray[1]))
-            props.setUserDispatch({username: payload.username, roles: payload.roles})
+            props.setUserDispatch({username: payload.username, roles: payload.roles, id: payload.id})
         }
     }, [])
 

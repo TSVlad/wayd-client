@@ -6,8 +6,9 @@ import {
 } from "react-router-dom";import Home from "./components/pages/Home";
 import NavbarWayd from "./components/navbar/NavbarWayd";
 import Categories from "./components/pages/Categories";
-import Event from "./components/pages/Event";
+import EventPage from "./components/pages/EventPage";
 import NewEventPage from "./components/pages/NewEventPage";
+import EditEventPage from "./components/pages/EditEventPage";
 
 function App() {
     return (
@@ -22,8 +23,11 @@ function App() {
                     <Route path={"/event/new"}>
                         <NewEventPage/>
                     </Route>
+                    <Route path={"/event/edit/:eventId"}>
+                        <EventPage edit={true}/>
+                    </Route>
                     <Route path={"/event/:eventId"}>
-                        <Event/>
+                        <EventPage/>
                     </Route>
                     <Route path="/">
                         <Home/>

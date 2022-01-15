@@ -1,6 +1,6 @@
 import {Marker, Popup, useMapEvents} from "react-leaflet";
 import {useState} from "react";
-import clientRequest from "../../utills/clientRequest";
+import clientRequest from "../../utills/request/clientRequest";
 import PATHS from "../../utills/servicesPaths";
 import MarkerClusterGroup from "react-leaflet-markercluster";
 import 'react-leaflet-markercluster/dist/styles.min.css';
@@ -40,9 +40,9 @@ const EventMarkers = () => {
     });
 
     return (
-        <MarkerClusterGroup>
+        <MarkerClusterGroup key={Math.random()}>
             {events.map(event => (
-                <Marker position={[event.point.x, event.point.y]}>
+                <Marker key={event.id} position={[event.point.x, event.point.y]}>
                     <Popup>
                         <Card style={{ width: '18rem' }}>
                             <Card.Body>

@@ -24,7 +24,7 @@ const MapWayd = (props) => {
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
 
-                <LocationMarker/>
+                <LocationMarker startByDefault={true}/>
                 <EventMarkers/>
 
                 {props.showUnsuccessfulLoginAlert &&

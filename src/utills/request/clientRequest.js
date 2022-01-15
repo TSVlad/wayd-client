@@ -1,4 +1,4 @@
-import {getCookie} from "./cookies";
+import {getCookie} from "../cookies";
 
 const clientRequest = (
     path='/',
@@ -17,13 +17,13 @@ const clientRequest = (
         }
     }
 
-    if (method !== 'GET' && method !== 'DELETE' && body.constructor.name !== 'FormData') {
+    if (method !== 'GET' && method !== 'DELETE' && body && body.constructor.name !== 'FormData') {
         request.body = JSON.stringify(body)
         request.headers = {
             ...request.headers,
             'Content-Type': 'application/json'
         }
-    } else if (body && body.constructor && body.constructor.name === 'FormData') {
+    } else if (body && body.constructor && body && body.constructor.name === 'FormData') {
         request.body = body
     }
 
