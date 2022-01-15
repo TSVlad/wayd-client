@@ -9,6 +9,8 @@ const SmallMapComponent = (props) => {
 
     let DefaultIcon = L.icon({
         iconUrl: icon,
+        iconSize: [24, 40],
+        iconAnchor: [12, 40]
     });
     L.Marker.prototype.options.icon = DefaultIcon;
 
@@ -22,7 +24,7 @@ const SmallMapComponent = (props) => {
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                <ChangeViewComponent center={props.markerPosition ? props.markerPosition : [59.57, 30.19]} zoom={13}/>
+                <ChangeViewComponent center={props.markerPosition ? props.markerPosition : [59.57, 30.19]}/>
                 <LocationMarker startByDefault={!props.markerPosition}/>
                 {props.editMode && (
                     <SelectPlaceMarker position={props.markerPosition} onMarkerSet={props.onMarkerSet}/>

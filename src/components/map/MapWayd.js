@@ -12,7 +12,8 @@ const MapWayd = (props) => {
 
     let DefaultIcon = L.icon({
         iconUrl: icon,
-        shadowUrl: iconShadow
+        iconSize: [24, 40],
+        iconAnchor: [12, 40]
     });
     L.Marker.prototype.options.icon = DefaultIcon;
 
