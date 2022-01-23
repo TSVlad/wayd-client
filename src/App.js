@@ -1,14 +1,12 @@
 import './App.css';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-} from "react-router-dom";import Home from "./components/pages/Home";
+import {BrowserRouter as Router, Route, Switch,} from "react-router-dom";
+import Home from "./components/pages/Home";
 import NavbarWayd from "./components/navbar/NavbarWayd";
 import Categories from "./components/pages/Categories";
 import EventPage from "./components/pages/EventPage";
 import NewEventPage from "./components/pages/NewEventPage";
-import EditEventPage from "./components/pages/EditEventPage";
+import UsersEventsPage from "./components/pages/UsersEventsPage";
+import UserParticipationPage from "./components/pages/UserParticipationPage";
 
 function App() {
     return (
@@ -19,6 +17,12 @@ function App() {
                 <Switch>
                     <Route path="/categories">
                         <Categories/>
+                    </Route>
+                    <Route path={"/events/user/:userId/participation"}>
+                        <UserParticipationPage/>
+                    </Route>
+                    <Route path={"/events/user/:userId"}>
+                        <UsersEventsPage/>
                     </Route>
                     <Route path={"/event/new"}>
                         <NewEventPage/>

@@ -3,7 +3,7 @@ import {setShowUnsuccessfulLoginAlertAction, setUserAction} from "../../store/ac
 import {connect} from "react-redux";
 import clientRequest from "../../utills/request/clientRequest";
 import {useState} from "react";
-import PATHS from "../../utills/servicesPaths";
+import PATHS from "../../utills/constants/servicesPaths";
 import {setCookie} from "../../utills/cookies";
 
 
@@ -50,7 +50,7 @@ const Login = (props) => {
                                required="required"
                                onChange={(event) => setPassword(event.target.value)}/>
                     </div>
-                    <input className="btn btn-primary btn-block" value="Login" onClick={onLogin}/>
+                    <input className="btn btn-primary btn-block" defaultValue="Login" onClick={onLogin}/>
                     <div className="text-center mt-2">
                         <a href="#">Forgot Your password?</a>
                     </div>

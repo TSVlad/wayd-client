@@ -1,5 +1,5 @@
 import clientRequest from "../clientRequest";
-import PATHS from "../../servicesPaths";
+import PATHS from "../../constants/servicesPaths";
 
 const getEventByIdRequest = (id) => {
     return clientRequest(`${PATHS.eventServiceAPI}/event/${id}`)
@@ -13,4 +13,12 @@ const cancelParticipationRequest = (eventId) => {
     return clientRequest(`${PATHS.eventServiceAPI}/event/participate/${eventId}/cancel`, 'POST')
 }
 
-export {getEventByIdRequest, participateRequest, cancelParticipationRequest}
+const getEventsByOwnerIdRequest = (userId) => {
+    return clientRequest(`${PATHS.eventServiceAPI}/event/user/${userId}`)
+}
+
+const getEventsForParticipantIdRequest = (id) => {
+    return clientRequest(`${PATHS.eventServiceAPI}/event/participant/${id}`)
+}
+
+export {getEventByIdRequest, participateRequest, cancelParticipationRequest, getEventsByOwnerIdRequest, getEventsForParticipantIdRequest}

@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import clientRequest from "../../utills/request/clientRequest";
-import PATHS from "../../utills/servicesPaths";
+import PATHS from "../../utills/constants/servicesPaths";
 import CategoryModal from "../category/CategoryModal";
 
 const Categories = () => {

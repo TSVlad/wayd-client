@@ -78,8 +78,8 @@ const EventEditComponent = (props) => {
                         throw response.status
                     }
                 })
-                .then(urls => {
-                    setImagesURLs(urls)
+                .then(images => {
+                    setImagesURLs(images.map(image => image.url))
                 })
         }
     }, [event.picturesRefs])

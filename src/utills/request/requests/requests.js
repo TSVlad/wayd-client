@@ -1,5 +1,5 @@
 import clientRequest from "../clientRequest";
-import PATHS from "../../servicesPaths";
+import PATHS from "../../constants/servicesPaths";
 
 const getAllCategoriesRequest = async () => {
     return clientRequest(`${PATHS.eventServiceAPI}/event-category`)

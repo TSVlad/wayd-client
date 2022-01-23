@@ -3,7 +3,7 @@ import LocationMarker from "./markers/LocationMarker";
 import EventMarkers from "./markers/EventMarkers";
 import {useMapEvents} from "react-leaflet";
 import clientRequest from "../../utills/request/clientRequest";
-import PATHS from "../../utills/servicesPaths";
+import PATHS from "../../utills/constants/servicesPaths";
 import {useEffect, useState} from "react";
 import {getImageUrlsByIdsRequest} from "../../utills/request/requests/requests";
 

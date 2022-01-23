@@ -1,6 +1,6 @@
 import {Card} from "react-bootstrap";
 import {isoToLocalDateTimeForShow} from "../../../utills/dates";
-import LINKS from "../../../utills/links";
+import LINKS from "../../../utills/constants/links";
 // import '../../../index.css'
 
 const EventCardComponent = (props) => {

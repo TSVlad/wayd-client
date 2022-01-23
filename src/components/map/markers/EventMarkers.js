@@ -1,7 +1,7 @@
 import {Marker, Popup, useMapEvents} from "react-leaflet";
 import {useEffect, useState} from "react";
 import clientRequest from "../../../utills/request/clientRequest";
-import PATHS from "../../../utills/servicesPaths";
+import PATHS from "../../../utills/constants/servicesPaths";
 import MarkerClusterGroup from "react-leaflet-markercluster";
 import 'react-leaflet-markercluster/dist/styles.min.css';
 import {Button, Card} from "react-bootstrap";

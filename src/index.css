@@ -200,6 +200,10 @@ body {
     }
 }
 
+.navbar {
+    z-index: 2000;
+}
+
 .main-container {
     /*background: #A3C9FF;*/
     height: 100%;

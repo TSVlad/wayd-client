@@ -7,6 +7,7 @@ import {setUserAction} from "../../store/actionCreators/actionCreators";
 import {useEffect, useState} from "react";
 import {getCookie} from "../../utills/cookies";
 import {Button} from "react-bootstrap";
+import ROLES from "../../utills/constants/roles";
 
 const NavbarWayd = (props) => {
 
@@ -29,7 +30,13 @@ const NavbarWayd = (props) => {
             <div id="navbarCollapse" className="collapse navbar-collapse justify-content-start">
                 <div className="navbar-nav">
                     <a href="/" className="nav-item nav-link">Home</a>
-                    {props.user && props.user.roles.indexOf("ROLE_ADMIN") !== -1 &&
+                    {props.user && props.user.roles.indexOf(ROLES.USER) !== -1 &&
+                        <a href={`/events/user/${props.user.id}`} className="nav-item nav-link">Events</a>
+                    }
+                    {props.user && props.user.roles.indexOf(ROLES.PERSON) !== -1 &&
+                        <a href={`/events/user/${props.user.id}/participation`} className="nav-item nav-link">Participation</a>
+                    }
+                    {props.user && props.user.roles.indexOf(ROLES.ADMIN) !== -1 &&
                         <a href="/categories" className="nav-item nav-link">Categories</a>
                     }
 
