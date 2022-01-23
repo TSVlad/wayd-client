@@ -251,9 +251,14 @@ const EventEditComponent = (props) => {
                         saveEventRequest(event)
                             .then(response => {
                                 if (response.status === 200) {
-                                    history.push(`/event/${event.id}`)
+                                    return response.json()
+                                } else {
+                                    throw response
                                 }
-                            }) //TODO: redirect to event page
+                            })
+                            .then(event => {
+                                history.push(`/event/${event.id}`)
+                            })
                     }}>Save</Button>
                 </Row>
             </Form>

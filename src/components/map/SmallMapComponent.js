@@ -1,6 +1,6 @@
 import {MapContainer, Marker, TileLayer} from "react-leaflet";
-import LocationMarker from "./LocationMarker";
-import SelectPlaceMarker from "./SelectPlaceMarker";
+import LocationMarker from "./markers/LocationMarker";
+import SelectPlaceMarker from "./markers/SelectPlaceMarker";
 import icon from 'leaflet/dist/images/marker-icon.png';
 import L from 'leaflet'
 import ChangeViewComponent from "./ChangeViewComponent";
@@ -24,7 +24,7 @@ const SmallMapComponent = (props) => {
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                <ChangeViewComponent center={props.markerPosition ? props.markerPosition : [59.57, 30.19]}/>
+                <ChangeViewComponent center={props.markerPosition ? props.markerPosition : null}/>
                 <LocationMarker startByDefault={!props.markerPosition}/>
                 {props.editMode && (
                     <SelectPlaceMarker position={props.markerPosition} onMarkerSet={props.onMarkerSet}/>

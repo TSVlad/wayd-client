@@ -5,8 +5,9 @@ const ChangeViewComponent = (props) => {
     const map = useMap()
 
     useEffect(() => {
-        if (props.center)
-        map.setView(props.center, map.getZoom())
+        if (props.center) {
+            map.setView(props.center, map.getZoom())
+        }
     }, [props.center, map])
 
     return null

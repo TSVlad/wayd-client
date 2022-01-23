@@ -5,54 +5,64 @@ import '../../css/image.css'
 import SmallMapComponent from "../map/SmallMapComponent";
 import {connect} from "react-redux";
 import {cancelParticipationRequest, participateRequest} from "../../utills/request/requests/eventRequests";
-import {isoToLocalDateTime, isoToLocalDateTimeForShow} from "../../utills/dates";
+import {isoToLocalDateTimeForShow} from "../../utills/dates";
 
 const EventViewComponent = (props) => {
-    const [picturesUrls, setPicturesUrls] = useState([])
+    const [images, setImages] = useState([])
     const [event, setEvent] = useState(props.event)
 
     useEffect(() => {
         setEvent(props.event)
-        getImageUrlsByIdsRequest(props.event.picturesRefs, false)
-            .then(response => {
-                if (response.status === 200) {
-                    return response.json()
-                } else {
-                    throw response
-                }
-            })
-            .then(urls => {
-                setPicturesUrls(urls)
-            })
+        if (props.event.picturesRefs.length > 0) {
+            getImageUrlsByIdsRequest(props.event.picturesRefs, false)
+                .then(response => {
+                    if (response.status === 200) {
+                        return response.json()
+                    } else {
+                        throw response
+                    }
+                })
+                .then(images => {
+                    setImages(images)
+                })
+        }
     }, [props.event])
 
     return (
         <div>
-            <h2 className={"mt-3"}>{event.name}
-                {event && event.id && props.user.id === event.ownerId && (
-                    <Dropdown className={'d-inline float-end'}>
-                        <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-                            Actions
-                        </Dropdown.Toggle>
+            <Row>
+                <Col sm={10}>
+                    <h2 className={"mt-3"}>{event.name}</h2>
+                </Col>
+                <Col>
+                    {event && event.id && props.user.id === event.ownerId && (
+                        <Dropdown className={'d-inline float-end mt-3'}>
+                            <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+                                Actions
+                            </Dropdown.Toggle>
 
-                        <Dropdown.Menu>
-                            <Dropdown.Item href={`/event/edit/${event.id}`}>Edit</Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
-                )}
-            </h2>
-            <Carousel variant={"dark"} interval={3000} style={{height: '30vh', width: '100%'}} className={'mt-3'}>
-                {picturesUrls.map(url => (
-                    <Carousel.Item key={url}>
-                        <img
-                            className="d-block event-page-carousel-image"
-                            src={url}
-                            alt={'Event'}
-                        />
-                    </Carousel.Item>
+                            <Dropdown.Menu>
+                                <Dropdown.Item href={`/event/edit/${event.id}`}>Edit</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    )}
+                </Col>
+            </Row>
 
-                ))}
-            </Carousel>
+            {props.event && props.event.picturesRefs.length > 0 && (
+                <Carousel variant={"dark"} interval={3000} style={{height: '30vh', width: '100%'}} className={'mt-3'}>
+                    {images.map(image => (
+                        <Carousel.Item key={image.id}>
+                            <img
+                                className="d-block event-page-carousel-image"
+                                src={image.url}
+                                alt={'Event'}
+                            />
+                        </Carousel.Item>
+
+                    ))}
+                </Carousel>
+            )}
 
             <Row className={'mt-1'}>
                 <Col sm={8}>

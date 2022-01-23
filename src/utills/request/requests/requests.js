@@ -17,8 +17,8 @@ const uploadImagesRequest = (files) => {
     return clientRequest(`${PATHS.imageServiceAPI}/image`, 'POST', body)
 }
 
-const getImageUrlByIdRequest = (id) => {
-    return clientRequest(`${PATHS.imageServiceAPI}/image/${id}`)
+const getImageUrlByIdRequest = (id, isMiniature) => {
+    return clientRequest(`${PATHS.imageServiceAPI}/image/${id}?miniature=${isMiniature}`)
 }
 
 const getImageUrlsByIdsRequest = (ids, isMiniature) => {
