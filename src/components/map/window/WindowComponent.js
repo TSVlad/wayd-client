@@ -3,6 +3,7 @@ import {Button, Form} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import {useMap} from "react-leaflet";
 import {getAllCategoriesRequest} from "../../../utills/request/requests/requests";
+import {isoToLocalDateTime} from "../../../utills/dates";
 
 const modes = {
     OFF: 'OFF',
@@ -93,6 +94,7 @@ const WindowComponent = (props) => {
                                     <option value=''>-</option>
                                     {Object.values(categories).map(category => (
                                         <option key={category.categoryName}
+                                                selected={filter.category === category.categoryName}
                                                 value={category.categoryName}>{category.categoryName}</option>
                                     ))}
                                 </Form.Select>
@@ -107,7 +109,7 @@ const WindowComponent = (props) => {
                                     }}>
                                     <option value=''>-</option>
                                     {!!filter.category && !!categories[filter.category] && categories[filter.category].subCategories.map(sub => (
-                                        <option key={sub} value={sub}>{sub}</option>
+                                        <option key={sub} selected={filter.subcategory === sub} value={sub}>{sub}</option>
                                     ))}
                                 </Form.Select>
                             </Form.Group>
@@ -115,6 +117,7 @@ const WindowComponent = (props) => {
                             <Form.Group className={'mt-2'}>
                                 <Form.Label>Date after</Form.Label>
                                 <Form.Control type={'datetime-local'}
+                                              value={isoToLocalDateTime(filter.dateAfter)}
                                               onChange={(e) => {
                                                   setFilter({
                                                       ...filter,
@@ -125,7 +128,8 @@ const WindowComponent = (props) => {
 
                             <Form.Group className={'mt-2'}>
                                 <Form.Label>Date before</Form.Label>
-                                <Form.Control type={'datetime-local'} onChange={(e) => {
+                                <Form.Control type={'datetime-local'} value={isoToLocalDateTime(filter.dateBefore)}
+                                              onChange={(e) => {
                                     setFilter({...filter, dateBefore: new Date(e.target.value).toISOString()})
                                 }}/>
                             </Form.Group>
