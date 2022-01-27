@@ -8,6 +8,7 @@ import {useEffect, useState} from "react";
 import {getCookie} from "../../utills/cookies";
 import {Button} from "react-bootstrap";
 import ROLES from "../../utills/constants/roles";
+import NotificationBellComponent from "./NotificationBellComponent";
 
 const NavbarWayd = (props) => {
 
@@ -25,7 +26,7 @@ const NavbarWayd = (props) => {
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <a href="/" className="navbar-brand">Brand<b>Name</b></a>
             <button type="button" className="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                <span className="navbar-toggler-icon"></span>
+                <span className="navbar-toggler-icon"/>
             </button>
             <div id="navbarCollapse" className="collapse navbar-collapse justify-content-start">
                 <div className="navbar-nav">
@@ -34,7 +35,8 @@ const NavbarWayd = (props) => {
                         <a href={`/events/user/${props.user.id}`} className="nav-item nav-link">Events</a>
                     }
                     {props.user && props.user.roles.indexOf(ROLES.PERSON) !== -1 &&
-                        <a href={`/events/user/${props.user.id}/participation`} className="nav-item nav-link">Participation</a>
+                        <a href={`/events/user/${props.user.id}/participation`}
+                           className="nav-item nav-link">Participation</a>
                     }
                     {props.user && props.user.roles.indexOf(ROLES.ADMIN) !== -1 &&
                         <a href="/categories" className="nav-item nav-link">Categories</a>
@@ -43,16 +45,19 @@ const NavbarWayd = (props) => {
                 </div>
                 <div className="navbar-nav ml-auto action-buttons">
                     {!props.user &&
-                    <>
-                        <Login/>
-                        <SignUp/>
-                    </>
+                        <>
+                            <Login/>
+                            <SignUp/>
+                        </>
                     }
                     {props.user && props.user.roles.includes('ROLE_USER') &&
                         <a href="/event/new"><Button className="mr-3">Create event</Button></a>
                     }
                     {props.user &&
-                        <UserDropDown/>
+                        <>
+                            <NotificationBellComponent/>
+                            <UserDropDown/>
+                        </>
                     }
                 </div>
             </div>
