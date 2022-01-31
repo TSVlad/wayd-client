@@ -3,13 +3,14 @@ import {useEffect, useState} from "react";
 import {
     getNotificationsByStatusesRequest,
     updateNotificationStatus
-} from "../../utills/request/requests/notificationRequest";
+} from "../../utills/request/requests/notificationRequests";
 import NOTIFICATION_STATUSES from "../../utills/constants/notificationStatuses";
 import {isoToLocalDateTimeForShow} from "../../utills/dates";
 import {Button, Col, Modal, Row} from "react-bootstrap";
 import {getTextWithoutTags} from "../../utills/strings";
+import {connect} from "react-redux";
 
-const NotificationBellComponent = () => {
+const NotificationBellComponent = (props) => {
     const [showNotifications, setShowNotifications] = useState(false)
     const [notifications, setNotifications] = useState([])
     const [selectedNotification, setSelectedNotification] = useState(null)
@@ -33,10 +34,8 @@ const NotificationBellComponent = () => {
         updateNotificationStatus(notifications[index].id, NOTIFICATION_STATUSES.READ)
             .then(response => {
                 if (response.status === 200) {
-                    console.log(index)
                     const newNotifications = [...notifications]
                     newNotifications.splice(index, 1)
-                    console.log(newNotifications)
                     setNotifications(newNotifications)
                 } else {
                     throw response
@@ -85,7 +84,7 @@ const NotificationBellComponent = () => {
                         </div>
                     ))}
                     <div className={"w-100 text-center"}>
-                        <a href={"/"}>All</a>
+                        <a href={'/notifications/'}>All</a>
                     </div>
                 </div>
             )}
@@ -107,4 +106,10 @@ const NotificationBellComponent = () => {
     )
 }
 
-export default NotificationBellComponent
+const mapStateToProps = (state) => {
+    return {
+        user: state.user
+    }
+}
+
+export default connect(mapStateToProps)(NotificationBellComponent)

@@ -7,6 +7,7 @@ import EventPage from "./components/pages/EventPage";
 import NewEventPage from "./components/pages/NewEventPage";
 import UsersEventsPage from "./components/pages/UsersEventsPage";
 import UserParticipationPage from "./components/pages/UserParticipationPage";
+import NotificationsPage from "./components/pages/NotificationsPage";
 
 function App() {
     return (
@@ -15,6 +16,9 @@ function App() {
 
                 <NavbarWayd/>
                 <Switch>
+                    <Route path={"/notifications"}>
+                        <NotificationsPage/>
+                    </Route>
                     <Route path="/categories">
                         <Categories/>
                     </Route>

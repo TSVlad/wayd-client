@@ -14,4 +14,8 @@ const updateNotificationStatus = (id, status) => {
     return clientRequest(`${PATHS.notificationServiceAPI}/notification/${id}/update-status`, 'POST', status)
 }
 
-export {getNotificationsByStatusesRequest, updateNotificationStatus}
+const getAllNotificationRequest = (page, size) => {
+    return clientRequest(`${PATHS.notificationServiceAPI}/notification/all/${page}/${size}`)
+}
+
+export {getNotificationsByStatusesRequest, updateNotificationStatus, getAllNotificationRequest}
