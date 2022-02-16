@@ -9,6 +9,7 @@ import {isoToLocalDateTimeForShow} from "../../utills/dates";
 import {Button, Col, Modal, Row} from "react-bootstrap";
 import {getTextWithoutTags} from "../../utills/strings";
 import {connect} from "react-redux";
+import {useKeycloak} from "@react-keycloak/web";
 
 const NotificationBellComponent = (props) => {
     const [showNotifications, setShowNotifications] = useState(false)
@@ -16,19 +17,23 @@ const NotificationBellComponent = (props) => {
     const [selectedNotification, setSelectedNotification] = useState(null)
     const [showNotificationModal, setShowNotificationModal] = useState(false)
 
+    const {initialized} = useKeycloak()
+
     useEffect(() => {
-        getNotificationsByStatusesRequest([NOTIFICATION_STATUSES.NEW])
-            .then(response => {
-                if (response.status === 200) {
-                    return response.json()
-                } else {
-                    throw response
-                }
-            })
-            .then(notifications => {
-                setNotifications(notifications.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)))
-            })
-    }, [])
+        if (initialized) {
+            getNotificationsByStatusesRequest([NOTIFICATION_STATUSES.NEW])
+                .then(response => {
+                    if (response.status === 200) {
+                        return response.json()
+                    } else {
+                        throw response
+                    }
+                })
+                .then(notifications => {
+                    setNotifications(notifications.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)))
+                })
+        }
+    }, [initialized])
 
     const readMessage = (index) => {
         updateNotificationStatus(notifications[index].id, NOTIFICATION_STATUSES.READ)

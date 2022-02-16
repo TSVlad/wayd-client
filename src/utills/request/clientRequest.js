@@ -1,4 +1,4 @@
-import {getCookie} from "../cookies";
+import {keycloak} from "../../components/security/KeycloakSettings";
 
 const clientRequest = (
     path='/',
@@ -13,11 +13,11 @@ const clientRequest = (
         method: method,
         headers: {
             // ...headers,
-            'Authorization': `${getCookie("wayd-token")}`
+            'Authorization': `Bearer ${keycloak.token}`
         }
     }
 
-    if (method !== 'GET' && method !== 'DELETE' && body && body.constructor.name !== 'FormData') {
+    if (method !== 'GET' && method !== 'DELETE' && ((body && body.constructor.name !== 'FormData') || (typeof body == "boolean"))) {
         request.body = JSON.stringify(body)
         request.headers = {
             ...request.headers,
@@ -26,6 +26,7 @@ const clientRequest = (
     } else if (body && body.constructor && body && body.constructor.name === 'FormData') {
         request.body = body
     }
+    console.log(body)
     return fetch(url + path, request)
 }
 

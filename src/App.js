@@ -11,10 +11,11 @@ import NotificationsPage from "./components/pages/NotificationsPage";
 import {ReactKeycloakProvider} from "@react-keycloak/web";
 import {keycloak} from "./components/security/KeycloakSettings";
 import {useEffect} from "react";
-import {deleteCookie, getCookie, setCookie} from "./utills/cookies";
+import {getCookie, setCookie} from "./utills/cookies";
 import {bindActionCreators} from "redux";
 import {setUserAction} from "./store/actionCreators/actionCreators";
 import {connect} from "react-redux";
+import SettingsPage from "./components/pages/SettingsPage";
 
 function App(props) {
 
@@ -33,6 +34,7 @@ function App(props) {
         <ReactKeycloakProvider authClient={keycloak} initOptions={{onLoad: 'check-sso',
             silentCheckSsoRedirectUri:  window.location.origin + '/silent-check-sso.html'}}
                                onTokens={(tokens) => {
+                                   console.log('TOKENS')
                                    if (tokens.token) {
                                        setCookie('wayd-token', tokens.token)
                                        props.setUserDispatch(keycloak.tokenParsed)
@@ -51,6 +53,9 @@ function App(props) {
                         </Route>
                         <Route path={"/events/user/:userId/participation"}>
                             <UserParticipationPage/>
+                        </Route>
+                        <Route path={"/settings"}>
+                            <SettingsPage/>
                         </Route>
                         <Route path={"/events/user/:userId"}>
                             <UsersEventsPage/>

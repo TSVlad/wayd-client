@@ -18,4 +18,13 @@ const getAllNotificationRequest = (page, size) => {
     return clientRequest(`${PATHS.notificationServiceAPI}/notification/all/${page}/${size}`)
 }
 
-export {getNotificationsByStatusesRequest, updateNotificationStatus, getAllNotificationRequest}
+const getSendNotificationRequest = () => {
+    return clientRequest(`${PATHS.notificationServiceAPI}/user/send-email`)
+}
+
+const setSendNotificationRequest = (value) => {
+    return clientRequest(`${PATHS.notificationServiceAPI}/user/send-email`, 'POST', value)
+}
+
+export {getNotificationsByStatusesRequest, updateNotificationStatus, getAllNotificationRequest,
+    getSendNotificationRequest, setSendNotificationRequest}

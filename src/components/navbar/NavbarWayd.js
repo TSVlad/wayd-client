@@ -9,7 +9,7 @@ import {useKeycloak} from "@react-keycloak/web";
 
 const NavbarWayd = (props) => {
 
-    const { keycloak, initialized } = useKeycloak();
+    const {keycloak} = useKeycloak();
 
 
     return (
