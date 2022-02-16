@@ -1,26 +1,16 @@
 import {connect} from "react-redux";
-import Login from "./Login";
-import SignUp from "./SignUp";
 import UserDropDown from "./UserDropDown";
 import {bindActionCreators} from "redux";
 import {setUserAction} from "../../store/actionCreators/actionCreators";
-import {useEffect, useState} from "react";
-import {getCookie} from "../../utills/cookies";
 import {Button} from "react-bootstrap";
 import ROLES from "../../utills/constants/roles";
 import NotificationBellComponent from "./NotificationBellComponent";
+import {useKeycloak} from "@react-keycloak/web";
 
 const NavbarWayd = (props) => {
 
-    useEffect(() => {
-        const token = getCookie('wayd-token')
-        console.log(token)
-        if (token && token.startsWith("Bearer ")) {
-            const tokenArray = token.substring(7).split('.')
-            const payload = JSON.parse(atob(tokenArray[1]))
-            props.setUserDispatch({username: payload.username, roles: payload.roles, id: payload.id})
-        }
-    }, [])
+    const { keycloak, initialized } = useKeycloak();
+
 
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -31,14 +21,14 @@ const NavbarWayd = (props) => {
             <div id="navbarCollapse" className="collapse navbar-collapse justify-content-start">
                 <div className="navbar-nav">
                     <a href="/" className="nav-item nav-link">Home</a>
-                    {props.user && props.user.roles.indexOf(ROLES.USER) !== -1 &&
-                        <a href={`/events/user/${props.user.id}`} className="nav-item nav-link">Events</a>
+                    {props.user && props.user.realm_access.roles.includes(ROLES.USER) &&
+                        <a href={`/events/user/${props.user.sub}`} className="nav-item nav-link">Events</a>
                     }
-                    {props.user && props.user.roles.indexOf(ROLES.PERSON) !== -1 &&
-                        <a href={`/events/user/${props.user.id}/participation`}
+                    {props.user && props.user.realm_access.roles.includes(ROLES.PERSON) &&
+                        <a href={`/events/user/${props.user.sub}/participation`}
                            className="nav-item nav-link">Participation</a>
                     }
-                    {props.user && props.user.roles.indexOf(ROLES.ADMIN) !== -1 &&
+                    {props.user && props.user.realm_access.roles.includes(ROLES.ADMIN) &&
                         <a href="/categories" className="nav-item nav-link">Categories</a>
                     }
 
@@ -46,11 +36,15 @@ const NavbarWayd = (props) => {
                 <div className="navbar-nav ml-auto action-buttons">
                     {!props.user &&
                         <>
-                            <Login/>
-                            <SignUp/>
+                            <span data-toggle="dropdown" className="nav-link dropdown-toggle mr-4"
+                                  style={{cursor: 'pointer'}}
+                                  onClick={() => keycloak.login()}>Login</span>
+                            <a href="#" data-toggle="dropdown" className="btn btn-primary dropdown-toggle sign-up-btn">
+                                Sign up
+                            </a>
                         </>
                     }
-                    {props.user && props.user.roles.includes('ROLE_USER') &&
+                    {props.user &&props.user.realm_access.roles.includes(ROLES.USER) &&
                         <a href="/event/new"><Button className="mr-3">Create event</Button></a>
                     }
                     {props.user &&

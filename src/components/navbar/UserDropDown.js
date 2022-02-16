@@ -2,27 +2,33 @@ import {NavDropdown} from "react-bootstrap";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import {setUserAction} from "../../store/actionCreators/actionCreators";
+import {useKeycloak} from "@react-keycloak/web";
 import {deleteCookie} from "../../utills/cookies";
 
 const UserDropDown = (props) => {
 
+    const { keycloak, initialized } = useKeycloak();
+
     const onLogout = () => {
         deleteCookie('wayd-token')
         props.setUserDispatch(null)
+        keycloak.logout({
+            redirectUri: window.location.origin
+        })
     }
 
     return (
 
         <NavDropdown
             id="nav-dropdown-dark-example"
-            title={<span className="text-white">{props.user.username}</span>}
+            title={<span className="text-white">{props.user.name}</span>}
             menuVariant="dark"
         >
             <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
             <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
             <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
             <NavDropdown.Divider/>
-            <NavDropdown.Item href="/" onClick={onLogout}>Logout</NavDropdown.Item>
+            <NavDropdown.Item onClick={onLogout}>Logout</NavDropdown.Item>
         </NavDropdown>
     )
 
