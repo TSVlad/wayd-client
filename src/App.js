@@ -16,6 +16,7 @@ import {bindActionCreators} from "redux";
 import {setUserAction} from "./store/actionCreators/actionCreators";
 import {connect} from "react-redux";
 import SettingsPage from "./components/pages/SettingsPage";
+import UserProfilePage from "./components/pages/UserProfilePage";
 
 function App(props) {
 
@@ -50,6 +51,9 @@ function App(props) {
                         </Route>
                         <Route path="/categories">
                             <Categories/>
+                        </Route>
+                        <Route path="/user/:userId">
+                            <UserProfilePage/>
                         </Route>
                         <Route path={"/events/user/:userId/participation"}>
                             <UserParticipationPage/>

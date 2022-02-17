@@ -24,7 +24,7 @@ const UserDropDown = (props) => {
             title={<span className="text-white">{props.user.name}</span>}
             menuVariant="dark"
         >
-            <NavDropdown.Item href="#action/3.2">Profile</NavDropdown.Item>
+            <NavDropdown.Item href={`/user/${props.user.sub}`}>Profile</NavDropdown.Item>
             <NavDropdown.Item href={`/settings`}>Settings</NavDropdown.Item>
             <NavDropdown.Divider/>
             <NavDropdown.Item onClick={onLogout}>Logout</NavDropdown.Item>

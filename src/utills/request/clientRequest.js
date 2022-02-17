@@ -26,7 +26,6 @@ const clientRequest = (
     } else if (body && body.constructor && body && body.constructor.name === 'FormData') {
         request.body = body
     }
-    console.log(body)
     return fetch(url + path, request)
 }
 
