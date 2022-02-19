@@ -12,9 +12,11 @@ const clientRequest = (
     const request = {
         method: method,
         headers: {
-            // ...headers,
-            'Authorization': `Bearer ${keycloak.token}`
         }
+    }
+
+    if (keycloak.authenticated) {
+        request.headers['Authorization'] = `Bearer ${keycloak.token}`
     }
 
     if (method !== 'GET' && method !== 'DELETE' && ((body && body.constructor.name !== 'FormData') || (typeof body == "boolean"))) {
@@ -26,6 +28,7 @@ const clientRequest = (
     } else if (body && body.constructor && body && body.constructor.name === 'FormData') {
         request.body = body
     }
+    console.log(request)
     return fetch(url + path, request)
 }
 

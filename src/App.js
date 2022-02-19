@@ -17,6 +17,7 @@ import {setUserAction} from "./store/actionCreators/actionCreators";
 import {connect} from "react-redux";
 import SettingsPage from "./components/pages/SettingsPage";
 import UserProfilePage from "./components/pages/UserProfilePage";
+import RegisterPage from "./components/pages/RegisterPage";
 
 function App(props) {
 
@@ -36,6 +37,7 @@ function App(props) {
             silentCheckSsoRedirectUri:  window.location.origin + '/silent-check-sso.html'}}
                                onTokens={(tokens) => {
                                    console.log('TOKENS')
+                                   console.log(tokens)
                                    if (tokens.token) {
                                        setCookie('wayd-token', tokens.token)
                                        props.setUserDispatch(keycloak.tokenParsed)
@@ -51,6 +53,9 @@ function App(props) {
                         </Route>
                         <Route path="/categories">
                             <Categories/>
+                        </Route>
+                        <Route path="/user/:userId/edit">
+                            <UserProfilePage editMode={true}/>
                         </Route>
                         <Route path="/user/:userId">
                             <UserProfilePage/>
@@ -72,6 +77,9 @@ function App(props) {
                         </Route>
                         <Route path={"/event/:eventId"}>
                             <EventPage/>
+                        </Route>
+                        <Route path={"/register"}>
+                            <RegisterPage/>
                         </Route>
                         <Route path="/">
                             <Home/>

@@ -6,10 +6,12 @@ import {Button} from "react-bootstrap";
 import ROLES from "../../utills/constants/roles";
 import NotificationBellComponent from "./NotificationBellComponent";
 import {useKeycloak} from "@react-keycloak/web";
+import {useHistory} from "react-router-dom";
 
 const NavbarWayd = (props) => {
 
     const {keycloak} = useKeycloak();
+    const history = useHistory()
 
 
     return (
@@ -29,7 +31,7 @@ const NavbarWayd = (props) => {
                            className="nav-item nav-link">Participation</a>
                     }
                     {props.user && props.user.realm_access.roles.includes(ROLES.ADMIN) &&
-                        <a href="/categories" className="nav-item nav-link">Categories</a>
+                        <a href={'/categories'} className="nav-item nav-link">Categories</a>
                     }
 
                 </div>
@@ -39,7 +41,7 @@ const NavbarWayd = (props) => {
                             <span data-toggle="dropdown" className="nav-link dropdown-toggle mr-4"
                                   style={{cursor: 'pointer'}}
                                   onClick={() => keycloak.login()}>Login</span>
-                            <a href="#" data-toggle="dropdown" className="btn btn-primary dropdown-toggle sign-up-btn">
+                            <a href={'/register'} className="btn btn-primary sign-up-btn" onClick={() => history.push('/register')}>
                                 Sign up
                             </a>
                         </>

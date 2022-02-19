@@ -26,5 +26,17 @@ const setSendNotificationRequest = (value) => {
     return clientRequest(`${PATHS.notificationServiceAPI}/user/send-email`, 'POST', value)
 }
 
+const getSubscriptions = () => {
+    return clientRequest(`${PATHS.notificationServiceAPI}/subscription`)
+}
+
+const subscribe = (userId) => {
+    return clientRequest(`${PATHS.notificationServiceAPI}/subscription/${userId}`, 'POST')
+}
+
+const unsubscribe = (userId) => {
+    return clientRequest(`${PATHS.notificationServiceAPI}/subscription/${userId}`, 'DELETE')
+}
+
 export {getNotificationsByStatusesRequest, updateNotificationStatus, getAllNotificationRequest,
-    getSendNotificationRequest, setSendNotificationRequest}
+    getSendNotificationRequest, setSendNotificationRequest, getSubscriptions, subscribe, unsubscribe}

@@ -5,7 +5,7 @@ import UserComponent from "../user/UserComponent";
 import {getUserByIdRequest} from "../../utills/request/requests/userRequests";
 import {useKeycloak} from "@react-keycloak/web";
 
-const UserProfilePage = () => {
+const UserProfilePage = (props) => {
     const {userId} = useParams()
     const {initialized} = useKeycloak()
 
@@ -22,6 +22,7 @@ const UserProfilePage = () => {
                     }
                 })
                 .then(u => {
+                    console.log(u)
                     setUser(u)
                 })
         }
@@ -32,7 +33,7 @@ const UserProfilePage = () => {
             <Col sm={3}/>
             <Col>
                 {!!user &&
-                    <UserComponent user={user} className={'mt-3'}/>
+                    <UserComponent user={user} editMode={props.editMode} className={'mt-3'}/>
                 }
             </Col>
             <Col sm={3}/>
