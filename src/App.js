@@ -11,7 +11,7 @@ import NotificationsPage from "./components/pages/NotificationsPage";
 import {ReactKeycloakProvider} from "@react-keycloak/web";
 import {keycloak} from "./components/security/KeycloakSettings";
 import {useEffect} from "react";
-import {getCookie, setCookie} from "./utills/cookies";
+import {deleteCookie, getCookie, setCookie} from "./utills/cookies";
 import {bindActionCreators} from "redux";
 import {setUserAction} from "./store/actionCreators/actionCreators";
 import {connect} from "react-redux";
@@ -41,6 +41,9 @@ function App(props) {
                                    if (tokens.token) {
                                        setCookie('wayd-token', tokens.token)
                                        props.setUserDispatch(keycloak.tokenParsed)
+                                   } else {
+                                       deleteCookie('wayd-token')
+                                       props.setUserDispatch(null)
                                    }
                                }}>
 
