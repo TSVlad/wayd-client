@@ -26,7 +26,6 @@ const getImageUrlsByIdsRequest = (ids, isMiniature) => {
     for (const id of ids) {
         url += `&id=${id}`
     }
-    console.log(url)
     return clientRequest(url)
 }
 

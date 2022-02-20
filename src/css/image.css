@@ -2,6 +2,7 @@
     position: absolute;
     top: 0;
     right: 0;
+    z-index: 5;
 }
 
 .image-div {
@@ -64,4 +65,11 @@
     left: 0;
     max-height: 200px;
     max-width: 200px;
+    border-radius: 0.25rem;
+}
+
+.avatar-small-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
 }

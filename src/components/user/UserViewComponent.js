@@ -3,10 +3,12 @@ import LINKS from "../../utills/constants/links";
 import {connect} from "react-redux";
 import {useEffect, useState} from "react";
 import {getSubscriptions, subscribe, unsubscribe} from "../../utills/request/requests/notificationRequests";
+import {getImageUrlByIdRequest} from "../../utills/request/requests/requests";
 
 const UserViewComponent = (props) => {
 
     const [subscriptions, setSubscriptions] = useState([])
+    const [avatarUrl, setAvatarUrl] = useState(null)
 
     useEffect(() => {
         getSubscriptions()
@@ -23,12 +25,30 @@ const UserViewComponent = (props) => {
             })
     }, [])
 
+    useEffect(() => {
+        if (props.user) {
+            if (props.user.avatar) {
+                getImageUrlByIdRequest(props.user.avatar, true)
+                    .then(response => {
+                        if (response.status === 200) {
+                            return response.json()
+                        } else {
+                            throw response
+                        }
+                    })
+                    .then(dto => {
+                        setAvatarUrl(dto.url)
+                    })
+            }
+        }
+    }, [props])
+
     return (
         <div className={props.className}>
             <Row>
                 <Col sm={4}>
                     <div className="avatar-div mr-1" style={{display: "inline-block"}}>
-                        <Image src={props.user.avatar ? props.user.avatar : LINKS.defaultAvatarLink}
+                        <Image src={props.user.avatar && avatarUrl ? avatarUrl : LINKS.defaultAvatarLink}
                                className="avatar"/>
                     </div>
                 </Col>
