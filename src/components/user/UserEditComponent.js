@@ -72,33 +72,35 @@ const UserEditComponent = (props) => {
     return (
         <Form className={props.className}>
             <Row>
-                <Col sm={4}>
-                    <div className="avatar-div mr-1" style={{display: "inline-block"}}>
-                        <Image src={avatarUrl ? avatarUrl : LINKS.defaultAvatarLink}
-                               className="avatar"/>
-                        {avatarUrl &&
-                            <Button variant={'danger'} className={'delete-image-btn'}
-                                    onClick={() => {
-                                        setUserInfo({...userInfo, avatar: null})
-                                        setAvatarUrl(null)
-                                    }}>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                     className="bi bi-trash-fill" viewBox="0 0 16 16">
-                                    <path
-                                        d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
-                                </svg>
-                            </Button>
-                        }
-                    </div>
-                    <div>
-                        <Form.Control className="d-none" type="file" ref={inputRef} accept=".png, .jpg, .jpeg" onChange={e => {
-                            uploadImage(e.target.files)
-                        }}/>
-                        <Button variant={"secondary"} className={'w-100'} onClick={() => {
-                            inputRef.current?.click()
-                        }}>Change avatar</Button>
-                    </div>
-                </Col>
+                {props.user &&
+                    <Col sm={4}>
+                        <div className="avatar-div mr-1" style={{display: "inline-block"}}>
+                            <Image src={avatarUrl ? avatarUrl : LINKS.defaultAvatarLink}
+                                   className="avatar"/>
+                            {avatarUrl &&
+                                <Button variant={'danger'} className={'delete-image-btn'}
+                                        onClick={() => {
+                                            setUserInfo({...userInfo, avatar: null})
+                                            setAvatarUrl(null)
+                                        }}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         className="bi bi-trash-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                                    </svg>
+                                </Button>
+                            }
+                        </div>
+                        <div>
+                            <Form.Control className="d-none" type="file" ref={inputRef} accept=".png, .jpg, .jpeg" onChange={e => {
+                                uploadImage(e.target.files)
+                            }}/>
+                            <Button variant={"secondary"} className={'w-100'} onClick={() => {
+                                inputRef.current?.click()
+                            }}>Change avatar</Button>
+                        </div>
+                    </Col>
+                }
                 <Col>
                     {!props.user &&
                         <>
