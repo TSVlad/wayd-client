@@ -80,8 +80,7 @@ const UserSearchComponent = (props) => {
             <UsersListComponent users={users} images={images}/>
 
             <PaginationComponent pagesNumber={pageNumber} onPageChange={page => {
-                console.log(page)
-                // setPage(page)
+                setPage(page)
             }}/>
         </div>
     )
