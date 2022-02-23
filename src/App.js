@@ -20,6 +20,7 @@ import UserProfilePage from "./components/pages/UserProfilePage";
 import RegisterPage from "./components/pages/RegisterPage";
 import SubscriptionsPage from "./components/pages/SubscriptionsPage";
 import SubscribersPage from "./components/pages/SubscribersPage";
+import UsersPage from "./components/pages/UsersPage";
 
 function App(props) {
 
@@ -62,6 +63,9 @@ function App(props) {
                         </Route>
                         <Route path={'/subscribers'}>
                             <SubscribersPage/>
+                        </Route>
+                        <Route path={'/users'}>
+                            <UsersPage/>
                         </Route>
                         <Route path="/user/:userId/edit">
                             <UserProfilePage editMode={true}/>

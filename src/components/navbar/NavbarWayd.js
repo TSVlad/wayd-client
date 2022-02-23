@@ -26,14 +26,15 @@ const NavbarWayd = (props) => {
                     {props.user && props.user.realm_access.roles.includes(ROLES.USER) &&
                         <>
                             <a href={`/events/user/${props.user.sub}`} className="nav-item nav-link">Events</a>
+                            <a href={`/users`} className="nav-item nav-link">Users</a>
                             <a href={`/subscribers`} className="nav-item nav-link">Subscribers</a>
                         </>
                     }
                     {props.user && props.user.realm_access.roles.includes(ROLES.PERSON) &&
                         <>
+                            <a href={`/subscriptions`} className="nav-item nav-link">Subscriptions</a>
                             <a href={`/events/user/${props.user.sub}/participation`}
                                className="nav-item nav-link">Participation</a>
-                            <a href={`/subscriptions`} className="nav-item nav-link">Subscriptions</a>
                         </>
                     }
                     {props.user && props.user.realm_access.roles.includes(ROLES.ADMIN) &&

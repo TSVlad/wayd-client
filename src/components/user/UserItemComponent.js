@@ -12,8 +12,8 @@ const UserItemComponent = (props) => {
     return (
         <div className={props.className}>
             <a href={`/user/${props.user.id}`}>
-                <Image src={props.imageUrl ? props.imageUrl : '/images/defaultAvatar.png'} style={{width: "20%"}}/>
-                <div style={{display: "inline-block", width: "50%"}}>
+                <Image src={props.imageUrl ? props.imageUrl : '/images/defaultAvatar.png'} style={{width: "15%"}}/>
+                <div style={{display: "inline-block", width: "65%"}}>
                     <div className={'ml-2'}>
                         <h3>{props.user.surname} {props.user.name}</h3>
                         <h5>{props.user.username}</h5>
@@ -21,7 +21,7 @@ const UserItemComponent = (props) => {
                 </div>
 
             </a>
-            <div style={{display: "inline-block", width: "30%"}}>
+            <div style={{display: "inline-block", width: "20%"}}>
                 {subscribed &&
                     <Button variant={'secondary'} onClick={() => {
                         unsubscribeRequest(props.user.id)

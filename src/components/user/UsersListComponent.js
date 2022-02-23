@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import {getSubscriptionsRequest} from "../../utills/request/requests/notificationRequests";
 
 const UsersListComponent = (props) => {
-    const [subscriptions, setSubscriptions] = useState(props.subscriptions)
+    const [subscriptions, setSubscriptions] = useState([])
     useEffect(() => {
         if (!props.subscriptions) {
             getSubscriptionsRequest()
