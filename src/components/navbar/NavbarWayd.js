@@ -24,11 +24,17 @@ const NavbarWayd = (props) => {
                 <div className="navbar-nav">
                     <a href="/" className="nav-item nav-link">Home</a>
                     {props.user && props.user.realm_access.roles.includes(ROLES.USER) &&
-                        <a href={`/events/user/${props.user.sub}`} className="nav-item nav-link">Events</a>
+                        <>
+                            <a href={`/events/user/${props.user.sub}`} className="nav-item nav-link">Events</a>
+                            <a href={`/subscribers`} className="nav-item nav-link">Subscribers</a>
+                        </>
                     }
                     {props.user && props.user.realm_access.roles.includes(ROLES.PERSON) &&
-                        <a href={`/events/user/${props.user.sub}/participation`}
-                           className="nav-item nav-link">Participation</a>
+                        <>
+                            <a href={`/events/user/${props.user.sub}/participation`}
+                               className="nav-item nav-link">Participation</a>
+                            <a href={`/subscriptions`} className="nav-item nav-link">Subscriptions</a>
+                        </>
                     }
                     {props.user && props.user.realm_access.roles.includes(ROLES.ADMIN) &&
                         <a href={'/categories'} className="nav-item nav-link">Categories</a>
@@ -41,12 +47,13 @@ const NavbarWayd = (props) => {
                             <span data-toggle="dropdown" className="nav-link dropdown-toggle mr-4"
                                   style={{cursor: 'pointer'}}
                                   onClick={() => keycloak.login()}>Login</span>
-                            <a href={'/register'} className="btn btn-primary sign-up-btn" onClick={() => history.push('/register')}>
+                            <a href={'/register'} className="btn btn-primary sign-up-btn"
+                               onClick={() => history.push('/register')}>
                                 Sign up
                             </a>
                         </>
                     }
-                    {props.user &&props.user.realm_access.roles.includes(ROLES.USER) &&
+                    {props.user && props.user.realm_access.roles.includes(ROLES.USER) &&
                         <a href="/event/new"><Button className="mr-3">Create event</Button></a>
                     }
                     {props.user &&

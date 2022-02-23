@@ -2,7 +2,7 @@ import {Button, Col, Dropdown, Image, Row} from "react-bootstrap";
 import LINKS from "../../utills/constants/links";
 import {connect} from "react-redux";
 import {useEffect, useState} from "react";
-import {getSubscriptions, subscribe, unsubscribe} from "../../utills/request/requests/notificationRequests";
+import {getSubscriptionsRequest, subscribeRequest, unsubscribeRequest} from "../../utills/request/requests/notificationRequests";
 import {getImageUrlByIdRequest} from "../../utills/request/requests/requests";
 
 const UserViewComponent = (props) => {
@@ -11,7 +11,7 @@ const UserViewComponent = (props) => {
     const [avatarUrl, setAvatarUrl] = useState(null)
 
     useEffect(() => {
-        getSubscriptions()
+        getSubscriptionsRequest()
             .then(response => {
                 if (response.status === 200) {
                     return response.json()
@@ -82,7 +82,7 @@ const UserViewComponent = (props) => {
                     }
                     {props.user.id !== props.authenticatedUser.sub && !subscriptions.includes(props.user.id) &&
                         <Button onClick={() => {
-                            subscribe(props.user.id)
+                            subscribeRequest(props.user.id)
                                 .then(response => {
                                     if (response.status === 200) {
                                         setSubscriptions([...subscriptions, props.user.id])
@@ -95,7 +95,7 @@ const UserViewComponent = (props) => {
                     }
                     {subscriptions.includes(props.user.id) &&
                         <Button variant={'secondary'} onClick={() => {
-                            unsubscribe(props.user.id)
+                            unsubscribeRequest(props.user.id)
                                 .then(response => {
                                     if (response.status === 200) {
                                         setSubscriptions(subscriptions.filter(id => id !== props.user.id))

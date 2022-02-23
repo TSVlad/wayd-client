@@ -18,6 +18,8 @@ import {connect} from "react-redux";
 import SettingsPage from "./components/pages/SettingsPage";
 import UserProfilePage from "./components/pages/UserProfilePage";
 import RegisterPage from "./components/pages/RegisterPage";
+import SubscriptionsPage from "./components/pages/SubscriptionsPage";
+import SubscribersPage from "./components/pages/SubscribersPage";
 
 function App(props) {
 
@@ -36,8 +38,6 @@ function App(props) {
         <ReactKeycloakProvider authClient={keycloak} initOptions={{onLoad: 'check-sso',
             silentCheckSsoRedirectUri:  window.location.origin + '/silent-check-sso.html'}}
                                onTokens={(tokens) => {
-                                   console.log('TOKENS')
-                                   console.log(tokens)
                                    if (tokens.token) {
                                        setCookie('wayd-token', tokens.token)
                                        props.setUserDispatch(keycloak.tokenParsed)
@@ -56,6 +56,12 @@ function App(props) {
                         </Route>
                         <Route path="/categories">
                             <Categories/>
+                        </Route>
+                        <Route path={'/subscriptions'}>
+                            <SubscriptionsPage/>
+                        </Route>
+                        <Route path={'/subscribers'}>
+                            <SubscribersPage/>
                         </Route>
                         <Route path="/user/:userId/edit">
                             <UserProfilePage editMode={true}/>

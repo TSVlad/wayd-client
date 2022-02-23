@@ -13,4 +13,8 @@ const registerRequest = (userInfo) => {
     return clientRequest(`${PATHS.userServiceAPI}/user/register`, 'POST', userInfo)
 }
 
-export {getUserByIdRequest, updateUserRequest, registerRequest}
+const getUsersByIdsRequest = (ids) => {
+    return clientRequest(`${PATHS.userServiceAPI}/user/by-ids`, 'POST', ids)
+}
+
+export {getUserByIdRequest, updateUserRequest, registerRequest, getUsersByIdsRequest}
