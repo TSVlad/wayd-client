@@ -38,7 +38,10 @@ const NavbarWayd = (props) => {
                         </>
                     }
                     {props.user && props.user.realm_access.roles.includes(ROLES.ADMIN) &&
-                        <a href={'/categories'} className="nav-item nav-link">Categories</a>
+                        <>
+                            <a href={'/categories'} className="nav-item nav-link">Categories</a>
+                            <a href={'/ban-words'} className="nav-item nav-link">Ban words</a>
+                        </>
                     }
 
                 </div>

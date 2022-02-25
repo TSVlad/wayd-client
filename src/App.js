@@ -21,6 +21,7 @@ import RegisterPage from "./components/pages/RegisterPage";
 import SubscriptionsPage from "./components/pages/SubscriptionsPage";
 import SubscribersPage from "./components/pages/SubscribersPage";
 import UsersPage from "./components/pages/UsersPage";
+import BanWordsPage from "./components/pages/BanWordsPage";
 
 function App(props) {
 
@@ -57,6 +58,9 @@ function App(props) {
                         </Route>
                         <Route path="/categories">
                             <Categories/>
+                        </Route>
+                        <Route path="/ban-words">
+                            <BanWordsPage/>
                         </Route>
                         <Route path={'/subscriptions'}>
                             <SubscriptionsPage/>
