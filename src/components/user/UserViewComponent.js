@@ -4,11 +4,14 @@ import {connect} from "react-redux";
 import {useEffect, useState} from "react";
 import {getSubscriptionsRequest, subscribeRequest, unsubscribeRequest} from "../../utills/request/requests/notificationRequests";
 import {getImageUrlByIdRequest} from "../../utills/request/requests/requests";
+import ComplaintModalComponent from "../moderation/ComplaintModalComponent";
+import {complainRequest} from "../../utills/request/requests/moderationRequest";
 
 const UserViewComponent = (props) => {
 
     const [subscriptions, setSubscriptions] = useState([])
     const [avatarUrl, setAvatarUrl] = useState(null)
+    const [showModal, setShowModal] = useState(false)
 
     useEffect(() => {
         getSubscriptionsRequest()
@@ -69,6 +72,13 @@ const UserViewComponent = (props) => {
                                         <Dropdown.Item href={`/user/${props.user.id}/edit`}>Edit</Dropdown.Item>
                                     </Dropdown.Menu>
                                 )}
+                                {props.user.id !== props.authenticatedUser.sub && (
+                                    <Dropdown.Menu>
+                                        <Dropdown.Item onClick={() => {
+                                            setShowModal(true)
+                                        }}>Complain</Dropdown.Item>
+                                    </Dropdown.Menu>
+                                )}
                             </Dropdown>
 
                         </Col>
@@ -114,6 +124,11 @@ const UserViewComponent = (props) => {
                     <p>{props.user.description}</p>
                 </div>
             }
+
+            <ComplaintModalComponent show={showModal} onHide={() => setShowModal(false)} onComplain={complaint => {
+                complainRequest({...complaint, type: 'COMPLAINT_USER', objectId: props.user.id})
+                setShowModal(false)
+            }}/>
         </div>
     )
 }

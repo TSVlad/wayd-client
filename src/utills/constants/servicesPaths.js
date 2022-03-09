@@ -4,6 +4,7 @@ const PATHS = {
     imageServiceAPI: "/wayd-image/image-service-api",
     notificationServiceAPI: "/wayd-notification/notification-service-api",
     validatorServiceAPI: "/wayd-validator/validator-service-api",
+    moderationServiceAPI: "/wayd-moderation/moderation-service-api"
 }
 
 export default PATHS

@@ -6,10 +6,13 @@ import SmallMapComponent from "../map/SmallMapComponent";
 import {connect} from "react-redux";
 import {cancelParticipationRequest, participateRequest} from "../../utills/request/requests/eventRequests";
 import {isoToLocalDateTimeForShow} from "../../utills/dates";
+import {complainRequest} from "../../utills/request/requests/moderationRequest";
+import ComplaintModalComponent from "../moderation/ComplaintModalComponent";
 
 const EventViewComponent = (props) => {
     const [images, setImages] = useState([])
     const [event, setEvent] = useState(props.event)
+    const [showComplaint, setShowComplaint] = useState(false)
 
     useEffect(() => {
         setEvent(props.event)
@@ -35,17 +38,23 @@ const EventViewComponent = (props) => {
                     <h2 className={"mt-3"}>{event.name}</h2>
                 </Col>
                 <Col>
-                    {event && event.id && props.user.id === event.ownerId && (
-                        <Dropdown className={'d-inline float-end mt-3'}>
-                            <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-                                Actions
-                            </Dropdown.Toggle>
 
+                    <Dropdown className={'d-inline float-end mt-3'}>
+                        <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+                            Actions
+                        </Dropdown.Toggle>
+                        {event && event.id && props.user.sub === event.ownerId && (
                             <Dropdown.Menu>
                                 <Dropdown.Item href={`/event/edit/${event.id}`}>Edit</Dropdown.Item>
                             </Dropdown.Menu>
-                        </Dropdown>
-                    )}
+                        )}
+                        {event && event.id && props.user.sub !== event.ownerId && (
+                            <Dropdown.Menu>
+                                <Dropdown.Item onClick={() => setShowComplaint(true)}>Complain</Dropdown.Item>
+                            </Dropdown.Menu>
+                        )}
+                    </Dropdown>
+
                 </Col>
             </Row>
 
@@ -86,8 +95,9 @@ const EventViewComponent = (props) => {
 
                 <Col>
                     <div>
-                        {props.user && props.user.id === event.ownerId}
-                        <p>Status: {event.status}</p>
+                        {props.user && (props.user.sub === event.ownerId) &&
+                            <p>Status: {event.status}</p>
+                        }
                         <p>Date and time: {isoToLocalDateTimeForShow(event.dateTime)}</p>
                         <p>Participants: {event.participantsIds && event.participantsIds.length}</p>
                         {(event.minAge > 0 || event.maxAge > 0 || event.minNumberOfParticipants > 0 || event.maxNumberOfParticipants > 0) && (
@@ -99,7 +109,7 @@ const EventViewComponent = (props) => {
                                 }
                                 {(event.minNumberOfParticipants > 0 || event.maxNumberOfParticipants > 0) && (
                                     <p>Participants
-                                        number: {event.minNumberOfParticipants > 0 && event.maxNumberOfParticipants <= 0 ? '>' : ''} {event.minNumberOfParticipants > 0 ? event.minNumberOfParticipants : ''} {event.minNumberOfParticipants > 0 && event.maxNumberOfParticipants > 0  ? '-' : ''} {event.minNumberOfParticipants <= 0 && event.maxNumberOfParticipants > 0 ? '<' : ''} {event.maxNumberOfParticipants > 0 ? event.maxNumberOfParticipants : ''}</p>
+                                        number: {event.minNumberOfParticipants > 0 && event.maxNumberOfParticipants <= 0 ? '>' : ''} {event.minNumberOfParticipants > 0 ? event.minNumberOfParticipants : ''} {event.minNumberOfParticipants > 0 && event.maxNumberOfParticipants > 0 ? '-' : ''} {event.minNumberOfParticipants <= 0 && event.maxNumberOfParticipants > 0 ? '<' : ''} {event.maxNumberOfParticipants > 0 ? event.maxNumberOfParticipants : ''}</p>
                                 )}
                                 {event && event.deadline && (
                                     <p>Deadline: {isoToLocalDateTimeForShow(event.deadline)}</p>)}
@@ -140,6 +150,11 @@ const EventViewComponent = (props) => {
             </Row>
 
 
+
+            <ComplaintModalComponent show={showComplaint} onHide={() => setShowComplaint(false)} onComplain={complaint => {
+                complainRequest({...complaint, type: 'COMPLAINT_EVENT', objectId: event.id})
+                setShowComplaint(false)
+            }}/>
         </div>
     )
 }
