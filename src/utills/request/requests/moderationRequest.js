@@ -13,4 +13,8 @@ const banUserRequest = (banInfo) => {
     return clientRequest(`${PATHS.moderationServiceAPI}/ban`, 'POST', banInfo)
 }
 
-export {getReasonsRequest, complainRequest, banUserRequest}
+const blockRequest = (blockInfo) => {
+    return clientRequest(`${PATHS.moderationServiceAPI}/blocks`, 'POST', blockInfo)
+}
+
+export {getReasonsRequest, complainRequest, banUserRequest, blockRequest}

@@ -6,13 +6,16 @@ import SmallMapComponent from "../map/SmallMapComponent";
 import {connect} from "react-redux";
 import {cancelParticipationRequest, participateRequest} from "../../utills/request/requests/eventRequests";
 import {isoToLocalDateTimeForShow} from "../../utills/dates";
-import {complainRequest} from "../../utills/request/requests/moderationRequest";
+import {blockRequest, complainRequest} from "../../utills/request/requests/moderationRequest";
 import ComplaintModalComponent from "../moderation/ComplaintModalComponent";
+import ROLES from "../../utills/constants/roles";
+import BlockModalComponent from "../moderation/BlockModalComponent";
 
 const EventViewComponent = (props) => {
     const [images, setImages] = useState([])
     const [event, setEvent] = useState(props.event)
     const [showComplaint, setShowComplaint] = useState(false)
+    const [showBlock, setShowBlock] = useState(false)
 
     useEffect(() => {
         setEvent(props.event)
@@ -43,16 +46,17 @@ const EventViewComponent = (props) => {
                         <Dropdown.Toggle variant="secondary" id="dropdown-basic">
                             Actions
                         </Dropdown.Toggle>
-                        {event && event.id && props.user.sub === event.ownerId && (
-                            <Dropdown.Menu>
+                        <Dropdown.Menu>
+                            {event && event.id && props.user.sub === event.ownerId && (
                                 <Dropdown.Item href={`/event/edit/${event.id}`}>Edit</Dropdown.Item>
-                            </Dropdown.Menu>
-                        )}
-                        {event && event.id && props.user.sub !== event.ownerId && (
-                            <Dropdown.Menu>
+                            )}
+                            {event && event.id && props.user.sub !== event.ownerId && (
                                 <Dropdown.Item onClick={() => setShowComplaint(true)}>Complain</Dropdown.Item>
-                            </Dropdown.Menu>
-                        )}
+                            )}
+                            {event && props.user.realm_access.roles.includes(ROLES.MODERATOR) &&
+                                <Dropdown.Item onClick={() => setShowBlock(true)}>Block</Dropdown.Item>
+                            }
+                        </Dropdown.Menu>
                     </Dropdown>
 
                 </Col>
@@ -150,11 +154,17 @@ const EventViewComponent = (props) => {
             </Row>
 
 
+            <ComplaintModalComponent show={showComplaint} onHide={() => setShowComplaint(false)}
+                                     onComplain={complaint => {
+                                         complainRequest({...complaint, type: 'COMPLAINT_EVENT', objectId: event.id})
+                                         setShowComplaint(false)
+                                     }}/>
 
-            <ComplaintModalComponent show={showComplaint} onHide={() => setShowComplaint(false)} onComplain={complaint => {
-                complainRequest({...complaint, type: 'COMPLAINT_EVENT', objectId: event.id})
-                setShowComplaint(false)
-            }}/>
+            <BlockModalComponent show={showBlock} onHide={() => setShowBlock(false)}
+                                     onBlock={blockInfo => {
+                                         blockRequest({...blockInfo, type: 'EVENT', objectId: props.event.id})
+                                         setShowBlock(false)
+                                     }}/>
         </div>
     )
 }
