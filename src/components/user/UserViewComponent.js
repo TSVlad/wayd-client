@@ -5,13 +5,16 @@ import {useEffect, useState} from "react";
 import {getSubscriptionsRequest, subscribeRequest, unsubscribeRequest} from "../../utills/request/requests/notificationRequests";
 import {getImageUrlByIdRequest} from "../../utills/request/requests/requests";
 import ComplaintModalComponent from "../moderation/ComplaintModalComponent";
-import {complainRequest} from "../../utills/request/requests/moderationRequest";
+import {banUserRequest, complainRequest} from "../../utills/request/requests/moderationRequest";
+import ROLES from "../../utills/constants/roles";
+import BanModalComponent from "../moderation/BanModalComponent";
 
 const UserViewComponent = (props) => {
 
     const [subscriptions, setSubscriptions] = useState([])
     const [avatarUrl, setAvatarUrl] = useState(null)
     const [showModal, setShowModal] = useState(false)
+    const [showBan, setShowBan] = useState(false)
 
     useEffect(() => {
         getSubscriptionsRequest()
@@ -67,18 +70,23 @@ const UserViewComponent = (props) => {
                                 <Dropdown.Toggle variant="secondary" id="dropdown-basic">
                                     Actions
                                 </Dropdown.Toggle>
-                                {props.user.id === props.authenticatedUser.sub && (
-                                    <Dropdown.Menu>
+                                <Dropdown.Menu>
+                                {props.authenticatedUser && props.user.id === props.authenticatedUser.sub && (
                                         <Dropdown.Item href={`/user/${props.user.id}/edit`}>Edit</Dropdown.Item>
-                                    </Dropdown.Menu>
                                 )}
-                                {props.user.id !== props.authenticatedUser.sub && (
-                                    <Dropdown.Menu>
+                                {props.authenticatedUser && props.user.id !== props.authenticatedUser.sub && (
                                         <Dropdown.Item onClick={() => {
                                             setShowModal(true)
                                         }}>Complain</Dropdown.Item>
-                                    </Dropdown.Menu>
                                 )}
+                                {props.user.id !== props.authenticatedUser.sub
+                                    && props.authenticatedUser.realm_access.roles.includes(ROLES.MODERATOR) && (
+                                        <Dropdown.Item onClick={() => {
+                                            setShowBan(true)
+                                        }}>Block</Dropdown.Item>
+                                    )
+                                }
+                                </Dropdown.Menu>
                             </Dropdown>
 
                         </Col>
@@ -90,7 +98,7 @@ const UserViewComponent = (props) => {
                     {props.user.contacts &&
                         <p>Contacts: {props.user.contacts}</p>
                     }
-                    {props.user.id !== props.authenticatedUser.sub && !subscriptions.includes(props.user.id) &&
+                    {props.authenticatedUser && props.user.id !== props.authenticatedUser.sub && !subscriptions.includes(props.user.id) &&
                         <Button onClick={() => {
                             subscribeRequest(props.user.id)
                                 .then(response => {
@@ -128,6 +136,11 @@ const UserViewComponent = (props) => {
             <ComplaintModalComponent show={showModal} onHide={() => setShowModal(false)} onComplain={complaint => {
                 complainRequest({...complaint, type: 'COMPLAINT_USER', objectId: props.user.id})
                 setShowModal(false)
+            }}/>
+
+            <BanModalComponent show={showBan} onHide={() => setShowBan(false)} onBan={ban => {
+                banUserRequest({...ban, userId: props.user.id})
+                setShowBan(false)
             }}/>
         </div>
     )

@@ -40,6 +40,7 @@ function App(props) {
         <ReactKeycloakProvider authClient={keycloak} initOptions={{onLoad: 'check-sso',
             silentCheckSsoRedirectUri:  window.location.origin + '/silent-check-sso.html'}}
                                onTokens={(tokens) => {
+                                   console.log(tokens)
                                    if (tokens.token) {
                                        setCookie('wayd-token', tokens.token)
                                        props.setUserDispatch(keycloak.tokenParsed)
