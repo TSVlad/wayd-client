@@ -53,7 +53,7 @@ const EventViewComponent = (props) => {
                             {event && event.id && props.user.sub !== event.ownerId && (
                                 <Dropdown.Item onClick={() => setShowComplaint(true)}>Complain</Dropdown.Item>
                             )}
-                            {event && props.user.realm_access.roles.includes(ROLES.MODERATOR) &&
+                            {props.user && event && props.user.realm_access.roles.includes(ROLES.MODERATOR) &&
                                 <Dropdown.Item onClick={() => setShowBlock(true)}>Block</Dropdown.Item>
                             }
                         </Dropdown.Menu>
