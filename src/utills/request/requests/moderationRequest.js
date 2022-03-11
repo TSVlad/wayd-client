@@ -29,5 +29,20 @@ const stopSessionRequest = () => {
     return clientRequest(`${PATHS.moderationServiceAPI}/session/close`, 'POST')
 }
 
+const getComplaintsRequest = (statuses = [], types = []) => {
+    let request = `${PATHS.moderationServiceAPI}/complaint?`
+    for (const status of statuses) {
+        request += `status=${status}&&`
+    }
+    for (const type of types) {
+        request += `type=${type}&&`
+    }
+    return clientRequest(request)
+}
+
+const processComplaintRequest = (details) => {
+    return clientRequest(`${PATHS.moderationServiceAPI}/complaint/process`, 'POST', details)
+}
+
 export {getReasonsRequest, complainRequest, banUserRequest, blockRequest, getCurrentSessionRequest, startSessionRequest,
-    stopSessionRequest}
+    stopSessionRequest, getComplaintsRequest, processComplaintRequest}

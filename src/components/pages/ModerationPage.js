@@ -1,29 +1,35 @@
 import {Button, Col, Row} from "react-bootstrap";
 import ComplaintsModerationComponent from "../moderation/ComplaintsModerationComponent";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {
     getCurrentSessionRequest,
     startSessionRequest,
     stopSessionRequest
 } from "../../utills/request/requests/moderationRequest";
+import {useKeycloak} from "@react-keycloak/web";
 
 const ModerationPage = () => {
 
     const [session, setSession] = useState(false)
 
-    useState(() => {
-        getCurrentSessionRequest()
-            .then(response => {
-                if (response.status === 200) {
-                    return response.json()
-                } else {
-                    throw response
-                }
-            })
-            .then(s => {
-                setSession(s)
-            })
-    }, [])
+    const {initialized} = useKeycloak()
+
+    useEffect(() => {
+        console.log('EFFECT', initialized)
+        if (initialized) {
+            getCurrentSessionRequest()
+                .then(response => {
+                    if (response.status === 200) {
+                        return response.json()
+                    } else {
+                        throw response
+                    }
+                })
+                .then(s => {
+                    setSession(s)
+                })
+        }
+    }, [initialized])
 
     return (
         <Row>
@@ -61,7 +67,7 @@ const ModerationPage = () => {
                         }>Stop moderation session</Button>
                     }
                 </Row>
-                <ComplaintsModerationComponent className={'m-3'}/>
+                <ComplaintsModerationComponent className={'m-3'} style={{overflow: 'scroll', maxHeight: '90vh'}}/>
             </Col>
             <Col sm={3}/>
         </Row>
