@@ -17,4 +17,17 @@ const blockRequest = (blockInfo) => {
     return clientRequest(`${PATHS.moderationServiceAPI}/blocks`, 'POST', blockInfo)
 }
 
-export {getReasonsRequest, complainRequest, banUserRequest, blockRequest}
+const getCurrentSessionRequest = () => {
+    return clientRequest(`${PATHS.moderationServiceAPI}/session/current`)
+}
+
+const startSessionRequest = () => {
+    return clientRequest(`${PATHS.moderationServiceAPI}/session/start`, 'POST')
+}
+
+const stopSessionRequest = () => {
+    return clientRequest(`${PATHS.moderationServiceAPI}/session/close`, 'POST')
+}
+
+export {getReasonsRequest, complainRequest, banUserRequest, blockRequest, getCurrentSessionRequest, startSessionRequest,
+    stopSessionRequest}

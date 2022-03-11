@@ -22,6 +22,7 @@ import SubscriptionsPage from "./components/pages/SubscriptionsPage";
 import SubscribersPage from "./components/pages/SubscribersPage";
 import UsersPage from "./components/pages/UsersPage";
 import BanWordsPage from "./components/pages/BanWordsPage";
+import ModerationPage from "./components/pages/ModerationPage";
 
 function App(props) {
 
@@ -40,7 +41,6 @@ function App(props) {
         <ReactKeycloakProvider authClient={keycloak} initOptions={{onLoad: 'check-sso',
             silentCheckSsoRedirectUri:  window.location.origin + '/silent-check-sso.html'}}
                                onTokens={(tokens) => {
-                                   console.log(tokens)
                                    if (tokens.token) {
                                        setCookie('wayd-token', tokens.token)
                                        props.setUserDispatch(keycloak.tokenParsed)
@@ -98,6 +98,9 @@ function App(props) {
                         </Route>
                         <Route path={"/register"}>
                             <RegisterPage/>
+                        </Route>
+                        <Route path={'/moderation'}>
+                            <ModerationPage/>
                         </Route>
                         <Route path="/">
                             <Home/>

@@ -44,6 +44,12 @@ const NavbarWayd = (props) => {
                         </>
                     }
 
+                    {props.user && props.user.realm_access.roles.includes(ROLES.MODERATOR) &&
+                        <>
+                            <a href={'/moderation'} className="nav-item nav-link">Moderation</a>
+                        </>
+                    }
+
                 </div>
                 <div className="navbar-nav ml-auto action-buttons">
                     {!props.user &&
