@@ -37,16 +37,16 @@ const NavbarWayd = (props) => {
                                className="nav-item nav-link">Participation</a>
                         </>
                     }
+                    {props.user && props.user.realm_access.roles.includes(ROLES.MODERATOR) &&
+                        <>
+                            <a href={'/moderation'} className="nav-item nav-link">Moderation</a>
+                        </>
+                    }
                     {props.user && props.user.realm_access.roles.includes(ROLES.ADMIN) &&
                         <>
                             <a href={'/categories'} className="nav-item nav-link">Categories</a>
                             <a href={'/ban-words'} className="nav-item nav-link">Ban words</a>
-                        </>
-                    }
-
-                    {props.user && props.user.realm_access.roles.includes(ROLES.MODERATOR) &&
-                        <>
-                            <a href={'/moderation'} className="nav-item nav-link">Moderation</a>
+                            <a href={'/reasons'} className="nav-item nav-link">Reasons</a>
                         </>
                     }
 

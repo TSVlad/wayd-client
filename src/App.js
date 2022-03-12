@@ -23,6 +23,7 @@ import SubscribersPage from "./components/pages/SubscribersPage";
 import UsersPage from "./components/pages/UsersPage";
 import BanWordsPage from "./components/pages/BanWordsPage";
 import ModerationPage from "./components/pages/ModerationPage";
+import ReasonsPage from "./components/pages/ReasonsPage";
 
 function App(props) {
 
@@ -101,6 +102,9 @@ function App(props) {
                         </Route>
                         <Route path={'/moderation'}>
                             <ModerationPage/>
+                        </Route>
+                        <Route path={'/reasons'}>
+                            <ReasonsPage/>
                         </Route>
                         <Route path="/">
                             <Home/>

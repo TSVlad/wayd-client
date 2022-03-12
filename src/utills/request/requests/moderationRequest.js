@@ -44,5 +44,14 @@ const processComplaintRequest = (details) => {
     return clientRequest(`${PATHS.moderationServiceAPI}/complaint/process`, 'POST', details)
 }
 
+const saveReasonRequest = (reason) => {
+    return clientRequest(`${PATHS.moderationServiceAPI}/reason`, 'POST', reason)
+}
+
+
+const deleteReasonRequest = (id) => {
+    return clientRequest(`${PATHS.moderationServiceAPI}/reason/${id}`, 'DELETE')
+}
+
 export {getReasonsRequest, complainRequest, banUserRequest, blockRequest, getCurrentSessionRequest, startSessionRequest,
-    stopSessionRequest, getComplaintsRequest, processComplaintRequest}
+    stopSessionRequest, getComplaintsRequest, processComplaintRequest, saveReasonRequest, deleteReasonRequest}
