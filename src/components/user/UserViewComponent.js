@@ -94,7 +94,9 @@ const UserViewComponent = (props) => {
 
 
                     <p><b>{props.user.username}</b></p>
-                    <p>Date of birth: {props.user.dateOfBirth}</p>
+                    {props.user.dateOfBirth &&
+                        <p>Date of birth: {props.user.dateOfBirth}</p>
+                    }
                     {props.user.contacts &&
                         <p>Contacts: {props.user.contacts}</p>
                     }

@@ -121,9 +121,14 @@ const UserEditComponent = (props) => {
                     <Form.Label>Name</Form.Label>
                     <Form.Control defaultValue={userInfo.name}
                                   onChange={(e) => setUserInfo({...userInfo, name: e.target.value})}/>
-                    <Form.Label className={'mt-2'}>Surname</Form.Label>
-                    <Form.Control defaultValue={userInfo.surname}
-                                  onChange={(e) => setUserInfo({...userInfo, surname: e.target.value})}/>
+                    {(!props.user || props.user.roles.includes('ROLE_PERSON')) &&
+                        <>
+                            <Form.Label className={'mt-2'}>Surname</Form.Label>
+                            <Form.Control defaultValue={userInfo.surname}
+                                          onChange={(e) => setUserInfo({...userInfo, surname: e.target.value})}/>
+                        </>
+                    }
+
                 </Col>
             </Row>
             <Form.Label className={'mt-2'}>Contacts</Form.Label>
