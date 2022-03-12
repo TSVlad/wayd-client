@@ -1,4 +1,4 @@
-import {Button, Form, FormControl} from "react-bootstrap";
+import {Button, Form, FormControl, Row} from "react-bootstrap";
 import {getUsersByNameLikeRequest, getUsersRequest} from "../../utills/request/requests/userRequests";
 import PaginationComponent from "../commons/PaginationComponent";
 import UsersListComponent from "./UsersListComponent";
@@ -60,8 +60,9 @@ const UserSearchComponent = (props) => {
     }, [initialized])
 
     return (
-        <div className={props.className}>
-            <Form className="d-flex">
+        <Row className={props.className + ' justify-content-center'}>
+            <Button className={'w-50'} href={'/organization/register'} variant={'outline-info'}>Add organization</Button>
+            <Form className="d-flex mt-3">
                 <FormControl
                     type="search"
                     placeholder="Search"
@@ -82,7 +83,7 @@ const UserSearchComponent = (props) => {
             <PaginationComponent pagesNumber={pageNumber} onPageChange={page => {
                 setPage(page)
             }}/>
-        </div>
+        </Row>
     )
 }
 

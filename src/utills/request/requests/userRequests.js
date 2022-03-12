@@ -21,4 +21,9 @@ const getUsersRequest = (searchString, page, size) => {
     return clientRequest(`${PATHS.userServiceAPI}/user?searchString=${searchString}&page=${page}&size=${size}`)
 }
 
-export {getUserByIdRequest, updateUserRequest, registerRequest, getUsersByIdsRequest, getUsersRequest}
+const registerOrganizationRequest = (info) => {
+    return clientRequest(`${PATHS.userServiceAPI}/user/register/organization`, 'POST', info)
+}
+
+export {getUserByIdRequest, updateUserRequest, registerRequest, getUsersByIdsRequest, getUsersRequest,
+    registerOrganizationRequest}

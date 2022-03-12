@@ -24,6 +24,7 @@ import UsersPage from "./components/pages/UsersPage";
 import BanWordsPage from "./components/pages/BanWordsPage";
 import ModerationPage from "./components/pages/ModerationPage";
 import ReasonsPage from "./components/pages/ReasonsPage";
+import OrganizationRegistrationPage from "./components/moderation/OrganizationRegistrationPage";
 
 function App(props) {
 
@@ -105,6 +106,9 @@ function App(props) {
                         </Route>
                         <Route path={'/reasons'}>
                             <ReasonsPage/>
+                        </Route>
+                        <Route path={'/organization/register'}>
+                            <OrganizationRegistrationPage/>
                         </Route>
                         <Route path="/">
                             <Home/>
