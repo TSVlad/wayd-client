@@ -7,12 +7,12 @@ import CustomMapComponents from "./CustomMapComponents";
 
 const MapWayd = (props) => {
 
-    let DefaultIcon = L.icon({
+    /*let DefaultIcon = L.icon({
         iconUrl: icon,
         iconSize: [24, 40],
         iconAnchor: [12, 40]
     });
-    L.Marker.prototype.options.icon = DefaultIcon;
+    L.Marker.prototype.options.icon = DefaultIcon;*/
 
     return (
         <div className={'wayd-map-container'}>
