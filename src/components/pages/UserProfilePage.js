@@ -1,5 +1,5 @@
 import {Col, Row} from "react-bootstrap";
-import {useParams} from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import UserComponent from "../user/UserComponent";
 import {getUserByIdRequest} from "../../utills/request/requests/userRequests";
@@ -10,6 +10,7 @@ const UserProfilePage = (props) => {
     const {initialized} = useKeycloak()
 
     const [user, setUser] = useState(null)
+    let location = useLocation()
 
     useEffect(() => {
         if (userId && initialized) {
@@ -26,7 +27,7 @@ const UserProfilePage = (props) => {
                     setUser(u)
                 })
         }
-    }, [userId, initialized])
+    }, [userId, initialized, location])
 
     return (
         <Row>

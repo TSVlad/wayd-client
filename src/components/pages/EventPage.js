@@ -1,10 +1,11 @@
-import {useParams} from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
 import EventComponent from "../event/EventComponent";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {getEventByIdRequest} from "../../utills/request/requests/eventRequests";
 
 const EventPage = (props) => {
     const {eventId} = useParams()
+    let location = useLocation()
 
     const [event, setEvent] = useState({
         name: '',
@@ -24,7 +25,8 @@ const EventPage = (props) => {
         deadline: null
     })
 
-    useState(() => {
+    useEffect(() => {
+        console.log('EFFECT')
         if (eventId) {
             getEventByIdRequest(eventId)
                 .then(response => {
@@ -40,7 +42,7 @@ const EventPage = (props) => {
                     setEvent(event)
                 })
         }
-    }, [eventId])
+    }, [eventId, location])
 
     return(
         <EventComponent event={event} editMode={props.edit}/>
