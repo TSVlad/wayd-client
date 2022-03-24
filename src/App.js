@@ -28,6 +28,8 @@ import OrganizationRegistrationPage from "./components/moderation/OrganizationRe
 
 function App(props) {
 
+    console.log(process.env.KEYCLOAK_ADDRESS)
+
     useEffect(() => {
         const token = getCookie('wayd-token')
         if (token) {

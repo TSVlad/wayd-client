@@ -7,7 +7,7 @@ const clientRequest = (
     headers={
 
     },
-    url= 'http://localhost:8080',
+    url= process.env.GATEWAY_ADDRESS ? process.env.GATEWAY_ADDRESS : 'http://localhost:8080',
 ) => {
     const request = {
         method: method,
